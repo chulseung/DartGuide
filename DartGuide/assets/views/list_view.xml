@@ -1,0 +1,40 @@
+<!-- 
+	****************************************************************************
+	* Controller	:	list_view.xml - 카테고리 화면 
+	* Company		:	MaxTED, inc.
+	* Department	:	Solution Dept.
+	* Author		:	Chulseung Lim
+	* Date			:	2013.03.26
+	* Changed Date	:	
+	* Functions		:	1) 메뉴 내 카테고리 항목 
+	*					2) list.xml을 담고 있다.
+	****************************************************************************
+ -->
+<plist>
+	<dict>
+		<key>title</key><string>SAMPLE</string>
+		<key>bgcolor</key><string>0,0,0,0.1</string>
+		<key>hidebackbtn</key><string>YES</string>
+		<key>hidenavbar</key><string>YES</string>
+		
+		<key>components</key>
+		<dict>
+			<key>componentsOrder</key><string>image_top,xlist</string>
+			<key>image_top</key>
+			<dict>
+				<key>type</key><string>image</string>
+				<key>pos</key><string>0,0,320,80</string>
+				<key>image</key><string>cate_kdb.png</string>
+			</dict>
+			<key>xlist</key>
+			<dict>
+				<key>type</key><string>class</string>
+				<key>class</key><string>XLIST</string>
+				<key>backgroundcolor</key><string>1,1,1,1</string>
+				<key>plist</key><string>views/list.xml</string>
+				<key>pos</key><string>0,80,320,400</string>    
+			</dict>
+		</dict> <!-- components -->
+		
+	</dict>
+</plist>

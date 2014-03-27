@@ -1,0 +1,50 @@
+<plist>
+	<dict>
+		<key>title</key><string>SAMPLE</string>
+		<key>bgcolor</key><string>0,0,0,0.1</string>
+		<key>hidebackbtn</key><string>YES</string>
+		<key>hidenavbar</key><string>NO</string>
+		
+		<key>components</key>
+		<dict>
+			<key>componentsOrder</key><string>video,button_name</string>
+			<key>video</key>
+			<dict>
+				<key>type</key><string>customview</string>
+				<key target='android'>class</key><string>com.maxted.DartGuide.XVideoViewAdapter</string>
+				<key>pos</key><string>0,0,320,200</string>
+				<key>backgroundcolor</key><string>0,0,0,1</string>
+			</dict>
+			<key>button_name</key>
+			<dict>
+				<key>type</key><string>button</string>
+				<key>title</key><string>HELLO BUTTON</string>
+				<key>backgroundcolor</key><string>0.8,0.8,0.8,1</string>
+				<key>pos</key><string>60,300,200,97</string>
+				<key>action</key>
+				<dict>
+					<key>sequence</key>
+					<array>
+						<string>@self.video_adapter._getData({rtsp://r2---sn-a5m7zu7d.c.youtube.com/CiILENy73wIaGQmQKAHy11zSfRMYDSANFEgGUgZ2aWRlb3MM/0/0/0/video.3gp})</string>
+					</array>
+				</dict>
+			</dict>
+		</dict>
+		
+		<key>movie_action</key>
+		<dict>
+			<key>sequence</key>
+			<array>
+				<string>@system.log(action)</string>
+			</array>
+			<key>type</key><string>custom</string>
+			<key>method</key><string>moviePlayer</string>
+			<key>parameter</key>
+		    <dict>
+		    	<key>url</key><string></string>
+		    	<key>doc_thm</key><string></string>
+		    </dict>
+		</dict>
+		
+	</dict>
+</plist>

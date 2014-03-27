@@ -1,0 +1,5 @@
+<plist>
+    <dict>
+        <key target='html5'>base</key><string>{@global.mainhost}/dunamis/DartGuide/assets/</string>
+    </dict>
+</plist>
