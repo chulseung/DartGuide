@@ -36,7 +36,7 @@
 				<dict>
 					<key>type</key><string>customview</string>
 					<key>class</key><string>XPageViewAdapter</string>
-					<key>pos</key><string>0,80,320,380</string>
+					<key>pos</key><string>0,0,320,380</string>
 					<key>backgroundcolor</key><string>1,0,0,0.2</string>
 					<key>spineLocation</key><string>min</string>
 					<key>transitionStyle</key><string>scroll</string>
@@ -58,7 +58,7 @@
 					<key>delay</key><string>0.2</string>
 						<key>sequence</key>
 						<array>
-							<string>@self.selectDot_img._move(@local.dotPosX._items({$sequence}),400,26,28)</string>
+							<string>@self.selectDot_img._move(@local.dotPosX._items({$sequence}),300,26,28)</string>
 						</array>
 					</dict>
 				</dict><!-- scroll -->
@@ -67,36 +67,36 @@
 		
 		<key>components</key>
 		<dict>
-			<key>componentsOrder</key><string>bg_img,dot_img01,dot_img02,dot_img03,selectDot_img,myLibrary_scrollPage</string>
-			<key>bg_img</key>
+			<key>componentsOrder</key><string>dot_img01,dot_img02,dot_img03,selectDot_img,myLibrary_scrollPage</string>
+			<!--key>bg_img</key>
 			<dict>
 				<key>type</key><string>image</string>
 				<key>pos</key><string>0,0,320,480</string>
 				<key>image</key><string>bgwhite.png</string>
-			</dict>
+			</dict-->
 			
 			<key>dot_img01</key>
 			<dict>
 				<key>type</key><string>image</string>
-				<key>pos</key><string>100,400,26,28</string>
+				<key>pos</key><string>100,300,13,14</string>
 				<key>image</key><string>main_flickdot_off.png</string>
 			</dict>
 			<key>dot_img02</key>
 			<dict>
 				<key>type</key><string>image</string>
-				<key>pos</key><string>129,400,26,28</string>
+				<key>pos</key><string>129,300,13,14</string>
 				<key>image</key><string>main_flickdot_off.png</string>
 			</dict>
 			<key>dot_img03</key>
 			<dict>
 				<key>type</key><string>image</string>
-				<key>pos</key><string>158,400,26,28</string>
+				<key>pos</key><string>158,300,13,14</string>
 				<key>image</key><string>main_flickdot_off.png</string>
 			</dict>
 			<key>selectDot_img</key>
 			<dict>
 				<key>type</key><string>image</string>
-				<key>pos</key><string>100,400,26,28</string>
+				<key>pos</key><string>100,300,13,14</string>
 				<key>image</key><string>main_flickdot_on.png</string>
 			</dict>
 		</dict> <!-- components -->

@@ -71,7 +71,7 @@
 				<key>backgroundimage</key><string>bgwhite.png</string>
 				<key>components</key>
 				<dict>
-					<key>componentsOrder</key><string>image_logo,content_view1,content_view2,content_view3,content_view4,content_view5,content_view6,content_view7,content_view8,intro_img</string>
+					<key>componentsOrder</key><string>image_logo,button_setting,scroll_view,intro_img</string>
 					
 					<key>image_logo</key>
 					<dict>
@@ -82,18 +82,27 @@
 					<key>button_setting</key>
 					<dict>
 					    <key>type</key><string>button</string>
-					    <key>pos</key><string>260,12,34,33</string>
+					    <key>pos</key><string>275,23,26,25</string>
 					    <key>buttonimage</key><string>main_option.png</string>
 					    <key>backgroundcolor</key><string>0,0,1,0</string>
 					    <key>action</key>
 					    <dict>
 					    	<key>type</key><string>callAction</string>
 					    	<key>name</key><string>menu_action</string>
-					    	extra
-					    	
 					    </dict>
 					</dict>
-					<key>content_view1</key>
+					<key>scroll_view</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>backgroundcolor</key><string>0,1,0,1</string>
+						<key>plist</key><string>content/scroll_view.xml</string>
+						<key>pos</key><string>0,60,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-100)}</string>
+					</dict>
+					
+					
+					
+					<!--key>content_view1</key>
 					<dict>
 						<key>type</key><string>class</string>
 						<key>class</key><string>XFORM</string>
@@ -244,7 +253,7 @@
 								<key>myDelay</key><string>1.0</string>
 							</dict>
 						</dict>
-					</dict>					
+					</dict-->					
 					
 					<key>intro_img</key>
 					<dict>
@@ -274,7 +283,7 @@
 							<key>type</key><string>class</string>
 							<key>class</key><string>XFORM</string>
 							<key>pos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
-							<key>plist</key><string>views/detail_view.xml</string>
+							<key>plist</key><string>views/menu_main.xml</string>
 						</dict>
 					</dict>
 				</dict>
@@ -284,7 +293,7 @@
 					<key>command</key><string>transition</string>
 					<key>components</key>
 					<dict>
-						<key>detail_xform</key>
+						<key>menu_xform</key>
 						<dict>
 							<key>effect</key>
 							<dict>

@@ -19,7 +19,23 @@
 		
 		<key>components</key>
 		<dict>
-			<key>componentsOrder</key><string>content_view</string>
+			<key>componentsOrder</key><string>label_name</string>
+
+			<key>label_name</key>
+			<dict>
+			    <key>type</key><string>label</string>
+			    <key>title</key><string>@page</string>
+			    <key>textcolor</key><string>0,0,0,1</string>
+			    <key>pos</key><string>100,100,100,25</string>
+			    <key>backgroundcolor</key><string>0,1,0,1</string>
+			    <key>fontsize</key><string>15</string>
+			    <key>textalign</key><string>center</string>
+			    <key>bold</key><string>NO</string>
+			    <key>breakmode</key><string></string>
+			    <key>linenum</key><string>1</string>
+			    <key>shadowcolor</key><string>1,0,0,1</string><!--안드로이드만 가능-->
+				<key>shadowdirection</key><string>3,3,4</string><!--안드로이드만 가능-->
+			</dict>
 
 			<key>content_view</key>
 			<dict>

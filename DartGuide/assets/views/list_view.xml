@@ -32,7 +32,7 @@
 				<key>class</key><string>XLIST</string>
 				<key>backgroundcolor</key><string>1,1,1,1</string>
 				<key>plist</key><string>views/list.xml</string>
-				<key>pos</key><string>0,80,320,400</string>    
+				<key>pos</key><string>0,80,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-200)}</string>  
 			</dict>
 		</dict> <!-- components -->
 		

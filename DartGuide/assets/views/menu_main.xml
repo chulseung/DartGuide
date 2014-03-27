@@ -55,9 +55,9 @@
 					<key>xform</key>
 					<dict>
 						<key>type</key><string>class</string>
-						<key>class</key><string>XLIST</string>
+						<key>class</key><string>XFORM</string>
 						<key>backgroundcolor</key><string>1,1,1,1</string>
-						<key>plist</key><string>views/{@extra.parameter.menu}</string>
+						<key>plist</key><string>views/setting_view.xml</string>
 						<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-100)}</string>    
 					</dict>
 				</dict>
@@ -65,7 +65,7 @@
 			<key>panel_menu</key>
 			<dict>
 				<key>type</key><string>panel</string>
-				<key>pos</key><string>0,{@global.systemInfo.virtualWidth._add(-72)},{@global.systemInfo.virtualWidth},52</string>
+				<key>pos</key><string>0,{@global.systemInfo.virtualHeight._add(-72)},{@global.systemInfo.virtualWidth},52</string>
 				<key>backgroundcolor</key><string>0,0,0,1</string>
 				<key>backgroundimage</key><string>bt_bg.png</string>			
 				<key>components</key>
@@ -91,7 +91,15 @@
 					    <key>buttonimagepressed</key><string>bt_st_on.png</string>
 		                <key>action</key>
 		                <dict>
-		                
+		                	<key>type</key><string>callAction</string>
+		                	<key>name</key><string>show_menu_action</string>
+		                	<key>extra</key>
+		                	<dict>
+		                		<key>parameter</key>
+		                		<dict>
+		                			<key>menu</key><string>about_view.xml</string>
+		                		</dict>
+		                	</dict>
 		                </dict>    
 					</dict>
 					<key>button_03</key>
@@ -102,7 +110,15 @@
 					    <key>buttonimagepressed</key><string>bt_ct_on.png</string>
 		                <key>action</key>
 		                <dict>
-		                
+		                	<key>type</key><string>callAction</string>
+		                	<key>name</key><string>show_menu_action</string>
+		                	<key>extra</key>
+		                	<dict>
+		                		<key>parameter</key>
+		                		<dict>
+		                			<key>menu</key><string>list_view.xml</string>
+		                		</dict>
+		                	</dict>
 		                </dict>    
 					</dict>
 					<key>button_04</key>
@@ -113,7 +129,15 @@
 					    <key>buttonimagepressed</key><string>bt_op_on.png</string>
 		                <key>action</key>
 		                <dict>
-		                
+		                	<key>type</key><string>callAction</string>
+		                	<key>name</key><string>show_menu_action</string>
+		                	<key>extra</key>
+		                	<dict>
+		                		<key>parameter</key>
+		                		<dict>
+		                			<key>menu</key><string>setting_view.xml</string>
+		                		</dict>
+		                	</dict>		                
 		                </dict>    
 					</dict>															
 				</dict>
@@ -131,7 +155,7 @@
 					<key>command</key><string>transition</string>
 					<key>components</key>
 					<dict>
-						<key>detail_xform</key>
+						<key>menu_xform</key>
 						<dict>
 							<key>effect</key>
 							<dict>
@@ -148,7 +172,7 @@
 					<key>delay</key><string>0.8</string>
 		        	<key>sequence</key>
 		        	<array>
-		        		<string>@parent._remove(detail_xform)</string>
+		        		<string>@parent._remove(menu_xform)</string>
 		        	</array>
 				</dict>
 			</array>
@@ -156,16 +180,25 @@
 
 		<key>show_menu_action</key>
 		<dict>
+			<key>sequence</key>
+			<array>
+				<string>@system.log(@menu)</string>
+			</array>
+
 			<key>type</key><string>event</string>
 			<key>command</key><string>createComponents</string>
-			<!--key>containerName</key><string>panel_middle</string-->
+			<key>containerName</key><string>panel_middle</string>
 			<key>target</key><string>self</string>
 			<key>components</key>
 			<dict>
 				<key>componentsOrder</key><string>xform</string>
 				<key>xform</key>
 				<dict>
-					
+					<key>type</key><string>class</string>
+					<key>class</key><string>XFORM</string>
+					<key>backgroundcolor</key><string>1,1,1,1</string>
+					<key>plist</key><string>views/{@menu}</string>
+					<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-100)}</string>
 				</dict>
 			</dict>
 		</dict>
