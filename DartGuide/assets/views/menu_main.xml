@@ -9,13 +9,29 @@
 	* Functions		:	1) 세팅 버튼 클릭 시 호출되는 메뉴 메인 
 	****************************************************************************
  -->
- <!-- @global.systemInfo.virtualWidth / @global.systemInfo.virtualHeight -->
+ <!-- @global.systemInfo.screenWidth / @global.systemInfo.screenHeight -->
 <plist>
 	<dict>
 		<key>title</key><string>MENU_MAIN</string>
 		<key>bgcolor</key><string>0,0,0,0.1</string>
 		<key>hidebackbtn</key><string>YES</string>
 		<key>hidenavbar</key><string>YES</string>
+		
+		<key target='ios'>viewWillAppear</key>
+		<dict>
+			<key>sequence</key>
+			<array>
+				<string>@self.button_04._setState(pressed)</string>
+			</array>
+		</dict>
+
+		<key target='android'>onDidLoad</key>
+		<dict>
+			<key>sequence</key>
+			<array>
+				<string>@self.button_04._setState(pressed)</string>
+			</array>
+		</dict>
 		
 		<key>components</key>
 		<dict>
@@ -24,11 +40,18 @@
 			<dict>
 				<key>type</key><string>panel</string>
 				<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},48</string>
-				<key>backgroundcolor</key><string>1,1,1,1</string>
-				<key>backgroundimage</key><string>topbar.png</string>			
+				<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},48</string>
+				<key>backgroundcolor</key><string>0,0,0,1</string>
 				<key>components</key>
 				<dict>
-					<key>componentsOrder</key><string>button_back</string>
+					<key>componentsOrder</key><string>image_topbar,button_back,label_header</string>
+					<key>image_topbar</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},48</string>
+						<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},48</string>
+						<key>image</key><string>topbar.png</string>
+					</dict>
 					<key>button_back</key>
 					<dict>
 						<key>type</key><string>button</string>
@@ -41,13 +64,25 @@
 							<key>name</key><string>remove_view_action</string>
 		                </dict>
 					</dict>					
-
+					<key>label_header</key>
+					<dict>
+					    <key>type</key><string>label</string>
+					    <key>title</key><string>Setting</string>
+					    <key>textcolor</key><string>1,1,1,1</string>
+					    <key>pos</key><string>90,7,160,30</string>
+					    <key>backgroundcolor</key><string>0,1,0,0</string>
+					    <key>fontsize</key><string>12</string>
+					    <key target='ios'>fontsize</key><string>17</string>
+					    <key>textalign</key><string>center</string>
+					    <key>bold</key><string>NO</string>
+					</dict>
 				</dict>
 			</dict>
 			<key>panel_middle</key>
 			<dict>
 				<key>type</key><string>panel</string>
 				<key>pos</key><string>0,48,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-100)}</string>
+				<key target='ios'>pos</key><string>0,48,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
 				<key>backgroundcolor</key><string>1,1,1,1</string>
 				<key>components</key>
 				<dict>
@@ -59,6 +94,7 @@
 						<key>backgroundcolor</key><string>1,1,1,1</string>
 						<key>plist</key><string>views/setting_view.xml</string>
 						<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-100)}</string>    
+						<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>    
 					</dict>
 				</dict>
 			</dict>			
@@ -66,6 +102,7 @@
 			<dict>
 				<key>type</key><string>panel</string>
 				<key>pos</key><string>0,{@global.systemInfo.virtualHeight._add(-72)},{@global.systemInfo.virtualWidth},52</string>
+				<key target='ios'>pos</key><string>0,{@global.systemInfo.screenHeight._add(-72)},{@global.systemInfo.screenWidth},52</string>
 				<key>backgroundcolor</key><string>0,0,0,1</string>
 				<key>backgroundimage</key><string>bt_bg.png</string>			
 				<key>components</key>
@@ -74,23 +111,41 @@
 					<key>button_01</key>
 					<dict>
 						<key>type</key><string>button</string>
+						<key>group</key><string>button_01,button_02,button_03,button_04</string>
 						<key>pos</key><string>0,0,80,52</string>
 					    <key>buttonimage</key><string>bt_hm_off.png</string>
 					    <key>buttonimagepressed</key><string>bt_hm_on.png</string>
-		                <key>action</key>
-		                <dict>
+						<key>action</key>
+						<dict>
+							<key>sequence</key>
+							<array>
+								<string>@self.button_01._setbuttonimage(bt_hm_on.png)</string>
+							</array>
 							<key>type</key><string>callAction</string>
 							<key>name</key><string>remove_view_action</string>
-		                </dict>    
+						</dict>
+						<key>unselectAction</key>
+						<dict>
+							<key>sequence</key>
+							<array>
+								<string>@self.button_01._setbuttonimage(bt_hm_off.png)</string>
+							</array>
+						</dict>
 					</dict>
 					<key>button_02</key>
 					<dict>
 						<key>type</key><string>button</string>
+						<key>group</key><string>button_01,button_02,button_03,button_04</string>
 						<key>pos</key><string>80,0,80,52</string>
 					    <key>buttonimage</key><string>bt_st_off.png</string>
 					    <key>buttonimagepressed</key><string>bt_st_on.png</string>
-		                <key>action</key>
-		                <dict>
+						<key>action</key>
+						<dict>
+							<key>sequence</key>
+							<array>
+								<string>@self.button_02._setbuttonimage(bt_st_on.png)</string>
+								<string>@self.label_header._setText(Dart Guide)</string>
+							</array>
 		                	<key>type</key><string>callAction</string>
 		                	<key>name</key><string>show_menu_action</string>
 		                	<key>extra</key>
@@ -100,16 +155,29 @@
 		                			<key>menu</key><string>about_view.xml</string>
 		                		</dict>
 		                	</dict>
-		                </dict>    
+						</dict>
+						<key>unselectAction</key>
+						<dict>
+							<key>sequence</key>
+							<array>
+								<string>@self.button_02._setbuttonimage(bt_st_off.png)</string>
+							</array>
+						</dict>
 					</dict>
 					<key>button_03</key>
 					<dict>
 						<key>type</key><string>button</string>
+						<key>group</key><string>button_01,button_02,button_03,button_04</string>
 						<key>pos</key><string>160,0,80,52</string>
 					    <key>buttonimage</key><string>bt_ct_off.png</string>
 					    <key>buttonimagepressed</key><string>bt_ct_on.png</string>
-		                <key>action</key>
-		                <dict>
+						<key>action</key>
+						<dict>
+							<key>sequence</key>
+							<array>
+								<string>@self.button_03._setbuttonimage(bt_ct_on.png)</string>
+								<string>@self.label_header._setText(Category)</string>
+							</array>
 		                	<key>type</key><string>callAction</string>
 		                	<key>name</key><string>show_menu_action</string>
 		                	<key>extra</key>
@@ -119,16 +187,29 @@
 		                			<key>menu</key><string>list_view.xml</string>
 		                		</dict>
 		                	</dict>
-		                </dict>    
+						</dict>
+						<key>unselectAction</key>
+						<dict>
+							<key>sequence</key>
+							<array>
+								<string>@self.button_03._setbuttonimage(bt_ct_off.png)</string>
+							</array>
+						</dict>  
 					</dict>
 					<key>button_04</key>
 					<dict>
 						<key>type</key><string>button</string>
+						<key>group</key><string>button_01,button_02,button_03,button_04</string>
 						<key>pos</key><string>240,0,80,52</string>
 					    <key>buttonimage</key><string>bt_op_off.png</string>
 					    <key>buttonimagepressed</key><string>bt_op_on.png</string>
-		                <key>action</key>
-		                <dict>
+						<key>action</key>
+						<dict>
+							<key>sequence</key>
+							<array>
+								<string>@self.button_04._setbuttonimage(bt_op_on.png)</string>
+								<string>@self.label_header._setText(Setting)</string>
+							</array>
 		                	<key>type</key><string>callAction</string>
 		                	<key>name</key><string>show_menu_action</string>
 		                	<key>extra</key>
@@ -137,8 +218,15 @@
 		                		<dict>
 		                			<key>menu</key><string>setting_view.xml</string>
 		                		</dict>
-		                	</dict>		                
-		                </dict>    
+		                	</dict>
+						</dict>
+						<key>unselectAction</key>
+						<dict>
+							<key>sequence</key>
+							<array>
+								<string>@self.button_04._setbuttonimage(bt_op_off.png)</string>
+							</array>
+						</dict>  					    
 					</dict>															
 				</dict>
 			</dict>
@@ -160,8 +248,10 @@
 							<key>effect</key>
 							<dict>
 								<key>duration</key><string>0.8</string>
-								<key>startPos</key><string>0,0,320,480</string>
-								<key>endPos</key><string>0,480,320,480</string>
+								<key>startPos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+								<key>endPos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+								<key target='ios'>startPos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+								<key target='ios'>endPos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
 								<key>startAlpha</key><string>1</string>
 								<key>endAlpha</key><string>0</string>
 							</dict>
@@ -180,11 +270,6 @@
 
 		<key>show_menu_action</key>
 		<dict>
-			<key>sequence</key>
-			<array>
-				<string>@system.log(@menu)</string>
-			</array>
-
 			<key>type</key><string>event</string>
 			<key>command</key><string>createComponents</string>
 			<key>containerName</key><string>panel_middle</string>
@@ -199,10 +284,10 @@
 					<key>backgroundcolor</key><string>1,1,1,1</string>
 					<key>plist</key><string>views/{@menu}</string>
 					<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-100)}</string>
+					<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
 				</dict>
 			</dict>
 		</dict>
-
 		
 	</dict>
 </plist>

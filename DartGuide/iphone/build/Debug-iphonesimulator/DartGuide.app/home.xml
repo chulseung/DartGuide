@@ -13,7 +13,7 @@
 <plist version="1.0">
 	<dict>
 		<key>title</key><string>HOME</string>	
-        <key>bgcolor</key><string>1,1,1,1</string>		
+        <key>bgcolor</key><string>0,0,0,1</string>		
 		<key>hidebackbtn</key><string>YES</string>
 		<key>hidenavbar</key><string>YES</string>
 		
@@ -39,7 +39,7 @@
 			</array>
 		</dict>
 				
-		<key>viewWillAppear</key>
+		<key target='ios'>viewWillAppear</key>
 		<dict>
 			<key>delay</key><string>1.0</string>
 			<key>type</key><string>event</string>
@@ -52,7 +52,30 @@
 					<key>effect</key>
 					<dict>
 						<key>duration</key><string>0.8</string>
-						<key>endPos</key><string>0,0,320,480</string>
+						<key>endPos</key><string>0,0,@global.systemInfo.virtualWidth,{@global.systemInfo.virtualHeight}</string>
+						<key target='ios'>endPos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
+						<key>startAlpha</key><string>1.0</string>
+						<key>endAlpha</key><string>0.0</string>
+					</dict>
+				</dict>
+			</dict>
+		</dict>
+		
+		<key target='android'>onDidLoad</key>
+		<dict>
+			<key>delay</key><string>1.0</string>
+			<key>type</key><string>event</string>
+			<key>target</key><string>self</string>
+			<key>command</key><string>transition</string>
+			<key>components</key>
+			<dict>
+				<key>intro_img</key>
+				<dict>
+					<key>effect</key>
+					<dict>
+						<key>duration</key><string>0.8</string>
+						<key>endPos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+						<key target='ios'>endPos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
 						<key>startAlpha</key><string>1.0</string>
 						<key>endAlpha</key><string>0.0</string>
 					</dict>
@@ -62,20 +85,129 @@
 		
 		<key>components</key>
 		<dict>
-			<key>componentsOrder</key><string>panel_content,content_view2,content_view3,content_view4,button,intro_img,panel_pop</string>
-			
+			<key>componentsOrder</key><string>panel_content</string>
+						
 			<key>panel_content</key>
 			<dict>
 				<key>type</key><string>panel</string>
-				<key>pos</key><string>10,10,143,94</string>
+				<key>pos</key><string>0,0,320,480</string>
+				<key>backgroundimage</key><string>bgwhite.png</string>
 				<key>components</key>
 				<dict>
-					<key>componentsOrder</key><string>content_view</string>
-					<key>content_view</key>
+					<key>componentsOrder</key><string>image_logo,button_setting,scroll_view,intro_img</string>
+					
+					<key>image_logo</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>20,12,110,32</string>
+						<key target='ios'>pos</key><string>20,16,110,32</string>
+						<key>image</key><string>main_logo.png</string>
+					</dict>
+					<key>button_setting</key>
+					<dict>
+					    <key>type</key><string>button</string>
+					    <key>pos</key><string>275,20,26,25</string>
+					    <key target='ios'>pos</key><string>275,23,26,25</string>
+					    <key>buttonimage</key><string>main_option.png</string>
+					    <key>backgroundcolor</key><string>0,0,1,0</string>
+					    <key>action</key>
+					    <dict>
+					    	<key>type</key><string>callAction</string>
+					    	<key>name</key><string>menu_action</string>
+					    </dict>
+					</dict>
+					<key>scroll_view</key>
 					<dict>
 						<key>type</key><string>class</string>
 						<key>class</key><string>XFORM</string>
-						<key>pos</key><string>0,0,143,94</string>
+						<key>backgroundcolor</key><string>1,1,1,0</string>
+						<key>plist</key><string>views/scrollpage.xml</string>
+						<key>pos</key><string>0,60,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-80)}</string>
+						<key target='ios'>pos</key><string>0,60,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
+					</dict>
+					
+					
+					<!--key>content_view1</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,60,143,84</string>
+						<key>plist</key><string>views/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>다트 1</string>
+								<key>desc</key><string>다트가 뭔가요?</string>
+								<key>img</key><string>menu1.png</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+								<key>myDelay</key><string>0.5</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view2</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,60,143,84</string>
+						<key>plist</key><string>views/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>다트 2</string>
+								<key>desc</key><string>다트 자세 배우기</string>
+								<key>img</key><string>menu3.png</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+								<key>myDelay</key><string>1.0</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view3</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,154,143,84</string>
+						<key>plist</key><string>views/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>다트 3</string>
+								<key>desc</key><string>다트가 왕창 점수내기</string>
+								<key>img</key><string>menu4.png</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>94</string>
+								<key>myDelay</key><string>0.5</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view4</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,154,143,84</string>
+						<key>plist</key><string>views/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>다트 4</string>
+								<key>desc</key><string>다트가 기초를 알아봄</string>
+								<key>img</key><string>menu2.png</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>94</string>
+								<key>myDelay</key><string>1.0</string>
+							</dict>
+						</dict>
+					</dict>			
+					<key>content_view5</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,248,143,84</string>
 						<key>plist</key><string>views/content_view.xml</string>
 						<key>extra</key>
 						<dict>
@@ -89,100 +221,128 @@
 								<key>myDelay</key><string>0.5</string>
 							</dict>
 						</dict>
-					</dict>					
-				</dict>
-			</dict>
-
-			<key>content_view2</key>
-			<dict>
-				<key>type</key><string>class</string>
-				<key>class</key><string>XFORM</string>
-				<key>pos</key><string>163,10,143,94</string>
-				<key>plist</key><string>views/content_view.xml</string>
-				<key>extra</key>
-				<dict>
-					<key>parameter</key>
-					<dict>
-						<key>title</key><string>다트 2</string>
-						<key>desc</key><string>다트 자세 배우기</string>
-						<key>img</key><string>menu3.png</string>
-						<key>width</key><string>143</string>
-						<key>height</key><string>94</string>
-						<key>myDelay</key><string>0.5</string>
 					</dict>
-				</dict>
-			</dict>
-
-			<key>content_view3</key>
-			<dict>
-				<key>type</key><string>class</string>
-				<key>class</key><string>XFORM</string>
-				<key>pos</key><string>10,114,143,94</string>
-				<key>plist</key><string>views/content_view.xml</string>
-				<key>extra</key>
-				<dict>
-					<key>parameter</key>
+					<key>content_view6</key>
 					<dict>
-						<key>title</key><string>다트 3</string>
-						<key>desc</key><string>다트가 왕창 점수내기</string>
-						<key>img</key><string>menu4.png</string>
-						<key>width</key><string>143</string>
-						<key>height</key><string>94</string>
-						<key>myDelay</key><string>0.5</string>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,248,143,84</string>
+						<key>plist</key><string>views/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>다트 2</string>
+								<key>desc</key><string>다트 자세 배우기</string>
+								<key>img</key><string>menu3.png</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>94</string>
+								<key>myDelay</key><string>1.0</string>
+							</dict>
+						</dict>
 					</dict>
-				</dict>
-			</dict>			
-			
-			<key>content_view4</key>
-			<dict>
-				<key>type</key><string>class</string>
-				<key>class</key><string>XFORM</string>
-				<key>pos</key><string>163,114,143,94</string>
-				<key>plist</key><string>views/content_view.xml</string>
-				<key>extra</key>
-				<dict>
-					<key>parameter</key>
+					<key>content_view7</key>
 					<dict>
-						<key>title</key><string>다트 4</string>
-						<key>desc</key><string>다트가 기초를 알아봄</string>
-						<key>img</key><string>menu2.png</string>
-						<key>width</key><string>143</string>
-						<key>height</key><string>94</string>
-						<key>myDelay</key><string>1.0</string>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,342,143,84</string>
+						<key>plist</key><string>views/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>다트 3</string>
+								<key>desc</key><string>다트가 왕창 점수내기</string>
+								<key>img</key><string>menu4.png</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>94</string>
+								<key>myDelay</key><string>0.5</string>
+							</dict>
+						</dict>
 					</dict>
+					<key>content_view8</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,342,143,84</string>
+						<key>plist</key><string>views/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>다트 4</string>
+								<key>desc</key><string>다트가 기초를 알아봄</string>
+								<key>img</key><string>menu2.png</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>94</string>
+								<key>myDelay</key><string>1.0</string>
+							</dict>
+						</dict>
+					</dict-->					
+					
+					<key>intro_img</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+						<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
+						<key>image</key><string>intro.png</string>
+					</dict>		
 				</dict>
-			</dict>						
-			<key>button</key>
-			<dict>
-				<key>type</key><string>button</string>
-				<key>title</key><string>HELLO WORLD</string>
-				<key>backgroundcolor</key><string>0.8,0.8,0.8,1</string>
-				<key>pos</key><string>10,240,300,200</string>
-                <key>action</key>
-                <dict>
-                
-                </dict>    
 			</dict>
-			
-			<key>intro_img</key>
-			<dict>
-				<key>type</key><string>image</string>
-				<key>pos</key><string>0,0,320,480</string>
-				<key>image</key><string>intro.png</string>
-			</dict>
-			
-			<key>panel_pop</key>
-			<dict>
-				<key>type</key><string>panel</string>
-				<key>pos</key><string>0,0,320,480</string>
-				<key>backgroundcolor</key><string>1,1,1,0</string>
-				<key>components</key>
-				<dict>
-				</dict>
-			</dict>
-			
 		</dict> <!-- components -->
-		
+
+		<key>menu_action</key>
+		<dict>
+			<key>sequence</key>
+			<array>
+				<string>@system.log({@global.systemInfo.screenWidth})</string>
+				<string>@system.log({@global.systemInfo.screenHeight})</string>
+			</array>
+
+			<key>type</key><string>batch</string>
+			<key>Actions</key>
+			<array>
+				<dict>
+					<key>type</key><string>event</string>
+					<key>command</key><string>createComponents</string>
+					<!--key>containerName</key><string>paenl_pop</string-->
+					<key>target</key><string>self</string>
+					<key>components</key>
+					<dict>
+						<key>componentsOrder</key><string>menu_xform</string>
+						<key>menu_xform</key>
+						<dict>
+							<key>type</key><string>class</string>
+							<key>class</key><string>XFORM</string>
+							<key>pos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+							<!--key target='ios'>pos</key><string>0,{@global.systemInfo.screenHeight},{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string-->
+							<key target='ios'>pos</key><string>0,0,320,480</string>
+							<key>plist</key><string>views/menu_main.xml</string>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>type</key><string>event</string>
+					<key>target</key><string>parent</string>
+					<key>command</key><string>transition</string>
+					<key>components</key>
+					<dict>
+						<key>componentsOrder</key><string>menu_xform</string>
+						<key>menu_xform</key>
+						<dict>
+							<key>effect</key>
+							<dict>
+								<key>duration</key><string>0.5</string>
+								<key>startPos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+								<key>endPos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+								<key target='ios'>startPos</key><string>0,{@global.systemInfo.screenHeight},{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
+								<key target='ios'>endPos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
+							</dict>
+						</dict>
+					</dict>
+				</dict>
+			</array>
+		</dict>		
 		
 	</dict>
 </plist>

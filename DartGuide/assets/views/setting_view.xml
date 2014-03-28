@@ -71,11 +71,11 @@
 			<key>label_desc_01</key>
 			<dict>
 			    <key>type</key><string>label</string>
-			    <key>title</key><string>Wi-Fi가 연결되지 않았을 때, 3G 사용여부를 설정합니다. 3G가 열결되는 경우 데이터 요금이 부과될 수 있으니 이용에 참고하시기 바랍니다.</string>
+			    <key>title</key><string>Wi-Fi가 연결되지 않았을 때, 3G 사용여부를 설정합니다. 3G가 연결되는 경우 데이터 요금이 부과될 수 있으니 이용에 참고하시기 바랍니다.</string>
 			    <key>textcolor</key><string>1,1,1,1</string>
-			    <key>pos</key><string>25,115,260,40</string>
-			    <key>backgroundcolor</key><string>0,0,0,1</string>
-			    <key>fontsize</key><string>10</string>
+			    <key>pos</key><string>25,115,270,50</string>
+			    <key>backgroundcolor</key><string>0,0,0,0</string>
+			    <key>fontsize</key><string>9</string>
 			    <key>textalign</key><string>left</string>
 			    <key>bold</key><string>NO</string>
 			    <key>breakmode</key><string>wordwrap</string>

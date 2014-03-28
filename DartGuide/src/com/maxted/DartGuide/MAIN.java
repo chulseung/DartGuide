@@ -1,5 +1,6 @@
 package com.maxted.DartGuide; 
 import com.developerlife.Utils.*; 
+
 import android.os.Build;
 import android.app.Activity; 
 import android.app.ProgressDialog;
@@ -7,12 +8,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.os.Bundle; 
+
 import java.net.*; 
 import java.util.*; 
 import java.io.*; 
+
 import android.widget.*; 
 
 import java.text.*;
+
 import android.view.*; 
 import android.content.Intent; 
 import android.widget.LinearLayout.LayoutParams; 
@@ -25,9 +29,11 @@ import android.hardware.SensorManager;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.Class;
+
 import android.database.*;
 import android.database.sqlite.*;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
@@ -35,6 +41,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.HttpResponse;
 import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.app.AlertDialog;
 import android.os.Handler;
 import android.os.Message;
@@ -338,6 +345,16 @@ public class MAIN extends  flashbox.ANDROID.DELEGATE
 		MANAGER.pushRightIn=R.anim.push_right_in;
 		MANAGER.pushRightOut=R.anim.push_right_out;
 		MANAGER.debug=10000;
+		
+		MANAGER.debugging=true;
+		
+		
+		if(Build.DEVICE.equals("vu2kt") ){
+			MANAGER.fontScaleFactor=0.8f;	
+			MANAGER.log("디바이스이름: "+Build.DEVICE.toString());
+		}
+		
+		
 		super.onCreate(savedInstanceState); 
 		try{
 			//MANAGER.mapActivity=this;

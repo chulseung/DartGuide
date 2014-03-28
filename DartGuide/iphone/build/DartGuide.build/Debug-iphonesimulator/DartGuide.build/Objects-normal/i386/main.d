@@ -1,2 +1,1 @@
-dependencies: \
-  /Users/cslim/Documents/Dunamis/workspace2/DartGuide/iphone/main.m
+dependencies: /Users/cslim/git/DartGuide/DartGuide/iphone/main.m

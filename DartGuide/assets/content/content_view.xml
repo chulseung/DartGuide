@@ -90,6 +90,13 @@
 				<dict>
 					<key>type</key><string>callAction</string>
 					<key>name</key><string>detail_action</string>
+					<key>extra</key>
+					<dict>
+						<key>parameter</key>
+						<dict>
+							<key>title</key><string>{@local.title}</string>
+						</dict>
+					</dict>
 				</dict>
 			</dict>		
 		
@@ -259,7 +266,7 @@
 					<key>type</key><string>event</string>
 					<key>command</key><string>createComponents</string>
 					<!--key>containerName</key><string>paenl_pop</string-->
-					<key>target</key><string>parent</string>
+					<key>target</key><string>parent.parent.parent</string>
 					<key>components</key>
 					<dict>
 						<key>componentsOrder</key><string>detail_xform</string>
@@ -267,14 +274,22 @@
 						<dict>
 							<key>type</key><string>class</string>
 							<key>class</key><string>XFORM</string>
-							<key>pos</key><string>0,480,320,480</string>
+							<key>pos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+							<key target='ios'>pos</key><string>0,{@global.systemInfo.screenHeight},{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
 							<key>plist</key><string>views/detail_view.xml</string>
+							<key>extra</key>
+							<dict>
+								<key>parameter</key>
+								<dict>
+									<key>title</key><string>@title</string>
+								</dict>
+							</dict>
 						</dict>
 					</dict>
 				</dict>
 				<dict>
 					<key>type</key><string>event</string>
-					<key>target</key><string>parent</string>
+					<key>target</key><string>parent.parent.parent</string>
 					<key>command</key><string>transition</string>
 					<key>components</key>
 					<dict>
@@ -283,8 +298,10 @@
 							<key>effect</key>
 							<dict>
 								<key>duration</key><string>0.5</string>
-								<key>startPos</key><string>0,480,320,480</string>
-								<key>endPos</key><string>0,0,320,480</string>
+								<key>startPos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+								<key>endPos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+								<key target='ios'>startPos</key><string>0,{@global.systemInfo.screenHeight},{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
+								<key target='ios'>endPos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
 							</dict>
 						</dict>
 					</dict>

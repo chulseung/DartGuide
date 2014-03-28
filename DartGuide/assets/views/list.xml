@@ -66,8 +66,8 @@
 			<key>rowHeight</key><string>60</string>
 			<key>cellStyle</key>
 			<dict>
-				<key>selectionStyle</key><string>0</string>
-				<key>accessoryType</key><string>2</string>
+				<!--key>selectionStyle</key><string>0</string>
+				<key>accessoryType</key><string>2</string-->
 			</dict>
 			
 			<key>image_main</key>
@@ -79,7 +79,7 @@
 			<key>label_title</key>
 			<dict>
 				<key>type</key><string>label</string>
-				<key>fontsize</key><string>15</string>
+				<key>fontsize</key><string>12</string>
 				<key>textcolor</key><string>0,0,0,1</string>
 				<key>bind</key><string>@title</string>
 				<key>pos</key><string>90,2,180,25</string>
@@ -88,10 +88,10 @@
 			<key>label_detail</key>
 			<dict>
 				<key>type</key><string>label</string>
-				<key>fontsize</key><string>10</string>
+				<key>fontsize</key><string>9</string>
 				<key>textcolor</key><string>0.5,0.5,0.5,1</string>
 				<key>bind</key><string>@detail</string>
-				<key>pos</key><string>90,30,180,30</string>
+				<key>pos</key><string>90,25,180,32</string>
 				<key>textalign</key><string>left</string>
 			    <key>breakmode</key><string>charwrap</string>
 			    <key>linenum</key><string>2</string>				
@@ -99,7 +99,7 @@
 			<key>image_arrow</key>
 			<dict>
 				<key>type</key><string>image</string>
-				<key>pos</key><string>280,20,20,20</string>
+				<key>pos</key><string>285,20,20,20</string>
 				<key>image</key><string>awright_b2.png</string>
 			</dict>
 		</dict>

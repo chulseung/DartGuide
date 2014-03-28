@@ -39,7 +39,7 @@
 			</array>
 		</dict>
 				
-		<key>viewWillAppear</key>
+		<key target='ios'>viewWillAppear</key>
 		<dict>
 			<key>delay</key><string>1.0</string>
 			<key>type</key><string>event</string>
@@ -52,7 +52,30 @@
 					<key>effect</key>
 					<dict>
 						<key>duration</key><string>0.8</string>
-						<key>endPos</key><string>0,0,320,480</string>
+						<key>endPos</key><string>0,0,@global.systemInfo.virtualWidth,{@global.systemInfo.virtualHeight}</string>
+						<key target='ios'>endPos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
+						<key>startAlpha</key><string>1.0</string>
+						<key>endAlpha</key><string>0.0</string>
+					</dict>
+				</dict>
+			</dict>
+		</dict>
+		
+		<key target='android'>onDidLoad</key>
+		<dict>
+			<key>delay</key><string>1.0</string>
+			<key>type</key><string>event</string>
+			<key>target</key><string>self</string>
+			<key>command</key><string>transition</string>
+			<key>components</key>
+			<dict>
+				<key>intro_img</key>
+				<dict>
+					<key>effect</key>
+					<dict>
+						<key>duration</key><string>0.8</string>
+						<key>endPos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+						<key target='ios'>endPos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
 						<key>startAlpha</key><string>1.0</string>
 						<key>endAlpha</key><string>0.0</string>
 					</dict>
@@ -77,12 +100,14 @@
 					<dict>
 						<key>type</key><string>image</string>
 						<key>pos</key><string>20,12,110,32</string>
+						<key target='ios'>pos</key><string>20,16,110,32</string>
 						<key>image</key><string>main_logo.png</string>
 					</dict>
 					<key>button_setting</key>
 					<dict>
 					    <key>type</key><string>button</string>
-					    <key>pos</key><string>275,23,26,25</string>
+					    <key>pos</key><string>275,20,26,25</string>
+					    <key target='ios'>pos</key><string>275,23,26,25</string>
 					    <key>buttonimage</key><string>main_option.png</string>
 					    <key>backgroundcolor</key><string>0,0,1,0</string>
 					    <key>action</key>
@@ -95,11 +120,11 @@
 					<dict>
 						<key>type</key><string>class</string>
 						<key>class</key><string>XFORM</string>
-						<key>backgroundcolor</key><string>0,1,0,1</string>
-						<key>plist</key><string>content/scroll_view.xml</string>
-						<key>pos</key><string>0,60,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-100)}</string>
+						<key>backgroundcolor</key><string>1,1,1,0</string>
+						<key>plist</key><string>views/scrollpage.xml</string>
+						<key>pos</key><string>0,60,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-80)}</string>
+						<key target='ios'>pos</key><string>0,60,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
 					</dict>
-					
 					
 					
 					<!--key>content_view1</key>
@@ -258,7 +283,8 @@
 					<key>intro_img</key>
 					<dict>
 						<key>type</key><string>image</string>
-						<key>pos</key><string>0,0,320,480</string>
+						<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+						<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
 						<key>image</key><string>intro.png</string>
 					</dict>		
 				</dict>
@@ -267,6 +293,12 @@
 
 		<key>menu_action</key>
 		<dict>
+			<key>sequence</key>
+			<array>
+				<string>@system.log({@global.systemInfo.screenWidth})</string>
+				<string>@system.log({@global.systemInfo.screenHeight})</string>
+			</array>
+
 			<key>type</key><string>batch</string>
 			<key>Actions</key>
 			<array>
@@ -283,6 +315,8 @@
 							<key>type</key><string>class</string>
 							<key>class</key><string>XFORM</string>
 							<key>pos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+							<!--key target='ios'>pos</key><string>0,{@global.systemInfo.screenHeight},{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string-->
+							<key target='ios'>pos</key><string>0,0,320,480</string>
 							<key>plist</key><string>views/menu_main.xml</string>
 						</dict>
 					</dict>
@@ -293,6 +327,7 @@
 					<key>command</key><string>transition</string>
 					<key>components</key>
 					<dict>
+						<key>componentsOrder</key><string>menu_xform</string>
 						<key>menu_xform</key>
 						<dict>
 							<key>effect</key>
@@ -300,6 +335,8 @@
 								<key>duration</key><string>0.5</string>
 								<key>startPos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
 								<key>endPos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
+								<key target='ios'>startPos</key><string>0,{@global.systemInfo.screenHeight},{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
+								<key target='ios'>endPos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
 							</dict>
 						</dict>
 					</dict>
