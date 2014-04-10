@@ -1,13 +1,13 @@
 <!-- 
 	****************************************************************************
-	* Controller	:	content_view.xml - 메인 화면
+	* Controller	:	content_view.xml - 기본 컨텐츠 뷰
 	* Company		:	MaxTED, inc.
 	* Department	:	Solution Dept.
 	* Author		:	Chulseung Lim
 	* Date			:	2014.03.26
-	* Changed Date	:	
-	* Functions		:	1) 
-	* 					2) 
+	* Changed Date	:	2014.04.10
+	* Functions		:	1) 동영상의 이미지,타이틀,링크를 담고 있는 페이지 뷰 위의 콘텐츠 뷰 
+	* 					2) 이미지 위의 버튼을 클릭 시 동영상 소개와 동영상을 재생하도록 하는 기능을 가지고 있다.
 	****************************************************************************
  -->
 <plist>
@@ -16,72 +16,56 @@
 		<key>bgcolor</key><string>0,0,0,0.1</string>
 		<key>hidebackbtn</key><string>YES</string>
 		<key>hidenavbar</key><string>YES</string>
-
+		
 		<key>localVariables</key>
 		<dict>
 			<key>title</key><string>@extra.parameter.title:default=</string>
 			<key>desc</key><string>@extra.parameter.desc:default=</string>
 			<key>img</key><string>@extra.parameter.img</string>
-			<key>myDelay</key><string>@extra.parameter.myDelay</string>
+			<key>url</key><string>@extra.parameter.url</string>
 			<key>anim</key><string>0</string>
 			<key>size</key>
 			<dict>
 				<key>width</key><string>@extra.parameter.width:default=</string>
 				<key>height</key><string>@extra.parameter.height:default=</string>
 			</dict>
-		</dict>
-
+		</dict> <!-- localVariables -->
+		
 		<key>viewWillAppear</key>
 		<dict>
-			<!-- 여기에 처리할 내용을 넣어준다. -->
-			
-		</dict>
+			<key>sequence</key>
+			<array>
+				<string>@system.log(@local.title)</string>
+				<string>@system.log(@extra.parameter.title)</string>
+			</array>
+		</dict> <!-- viewWillAppear -->
 		
-		<key>onDidLoad</key>
-		<dict>
-			<key>delay</key><string>@local.myDelay</string>
-			<key>type</key><string>callAction</string>
-			<key>name</key><string>repeat_action</string>
-		</dict>
-
 		<key>components</key>
 		<dict>
-			<key>componentsOrder</key><string>image_01,image_02,label_title,label_desc,button_detail</string>
-			<key>image_01</key>
+			<key>componentsOrder</key><string>bg_image,bg_label,title_label,detail_button</string>
+			<key>bg_image</key>
 			<dict>
 				<key>type</key><string>image</string>
 				<key>pos</key><string>0,0,{@local.size.width},{@local.size.height}</string>
 				<key>image</key><string>@local.img</string>
 			</dict>
-			<key>image_02</key>
+			<key>bg_label</key>
 			<dict>
-				<key>type</key><string>image</string>
-				<key>pos</key><string>0,-{@local.size.height},{@local.size.width},{@local.size.height}</string>
-				<key>image</key><string>box_blue.png</string>
+				<key>type</key><string>label</string>
+				<key>pos</key><string>0,0,{@local.size.width},30</string>
+				<key>backgroundcolor</key><string>0,0,0,0.5</string>
 			</dict>
-			<key>label_title</key>
+			<key>title_label</key>
 			<dict>
 				<key>type</key><string>label</string>
 				<key>title</key><string>@local.title</string>
 				<key>textcolor</key><string>1,1,1,1</string>
-				<key>pos</key><string>5,5,{@local.size.width},30</string>
+				<key>pos</key><string>10,0,{@local.size.width._add(-10)},30</string>
 				<key>backgroundcolor</key><string>0,0,0,0</string>
 				<key>fontsize</key><string>12</string>
 				<key>align</key><string>left</string>
 			</dict>
-			<key>label_desc</key>
-			<dict>
-				<key>type</key><string>label</string>
-				<key>title</key><string>@local.desc</string>
-				<key>textcolor</key><string>1,1,1,1</string>
-				<key>pos</key><string>5,60,{@local.size.width},30</string>
-				<key>backgroundcolor</key><string>0,0,0,0</string>
-				<key>fontsize</key><string>10</string>
-				<key>align</key><string>left</string>
-				<key>linenum</key><string>2</string>
-			</dict>
-			
-			<key>button_detail</key>
+			<key>detail_button</key>
 			<dict>
 				<key>type</key><string>button</string>
 				<key>backgroundcolor</key><string>0.8,0.8,0.8,0</string>
@@ -95,219 +79,12 @@
 						<key>parameter</key>
 						<dict>
 							<key>title</key><string>{@local.title}</string>
+							<key>url</key><string>{@local.title}</string>
 						</dict>
 					</dict>
 				</dict>
-			</dict>		
-		
-			<!--key>componentsOrder</key><string>panel_content</string>
-			<key>panel_content</key>
-			<dict>
-				<key>type</key><string>panel</string>
-				<key>pos</key><string>0,0,{@local.size.width},{@local.size.height}</string>
-				<key>backgroundcolor</key><string>1,1,1,1</string>
-				<key>backgroundimage</key><string></string>			
-				<key>components</key>
-				<dict>
-					<key>componentsOrder</key><string>image_01,image_02,label_title,label_desc,button_detail</string>
-					<key>image_01</key>
-					<dict>
-						<key>type</key><string>image</string>
-						<key>pos</key><string>0,0,{@local.size.width},{@local.size.height}</string>
-						<key>image</key><string>@local.img</string>
-					</dict>
-					<key>image_02</key>
-					<dict>
-						<key>type</key><string>image</string>
-						<key>pos</key><string>0,-{@local.size.height},{@local.size.width},{@local.size.height}</string>
-						<key>image</key><string>box_blue.png</string>
-					</dict>
-					<key>label_title</key>
-					<dict>
-						<key>type</key><string>label</string>
-						<key>title</key><string>@local.title</string>
-						<key>textcolor</key><string>1,1,1,1</string>
-						<key>pos</key><string>5,5,{@local.size.width},30</string>
-						<key>backgroundcolor</key><string>0,0,0,0</string>
-						<key>fontsize</key><string>12</string>
-						<key>align</key><string>left</string>
-					</dict>
-					<key>label_desc</key>
-					<dict>
-						<key>type</key><string>label</string>
-						<key>title</key><string>@local.desc</string>
-						<key>textcolor</key><string>1,1,1,1</string>
-						<key>pos</key><string>5,60,{@local.size.width},30</string>
-						<key>backgroundcolor</key><string>0,0,0,0</string>
-						<key>fontsize</key><string>10</string>
-						<key>align</key><string>left</string>
-						<key>linenum</key><string>2</string>
-					</dict>
-					
-					<key>button_detail</key>
-					<dict>
-						<key>type</key><string>button</string>
-						<key>backgroundcolor</key><string>0.8,0.8,0.8,0</string>
-						<key>pos</key><string>0,0,223,124</string>
-						<key>action</key>
-						<dict>
-		                    <key>type</key><string>alert</string>
-		                    <key>msg</key><string>상세페이지로 갈 예정임</string>
-		                    <key>button</key>
-		                    <dict>
-		                        <key>title</key><string>확인</string>
-		                    </dict>    
-						</dict>
-					</dict>
-				</dict>
-			</dict-->
-			
+			</dict>
 		</dict> <!-- components -->
-		
-		
-		<key>repeat_action</key>
-		<dict>
-			<key>type</key><string>batch</string>
-			<key>repeat</key><string>10000</string>
-			<key>interval</key><string>2</string>
-			<key>Actions</key>
-			<array>
-				<dict>
-					<key>type</key><string>condition</string>
-				    <key>selector</key><string>@local.anim</string>
-				    <key>0</key>
-				    <dict>
-						<key>type</key><string>batch</string>
-						<key>Actions</key>
-						<array>
-							<dict>
-								<key>type</key><string>event</string>
-								<key>target</key><string>self</string>
-								<key>command</key><string>transition</string>
-								<key>components</key>
-								<dict>
-									<key>image_02</key>
-									<dict>
-										<key>effect</key>
-										<dict>
-											<key>duration</key><string>0.5</string>
-											<key>startPos</key><string>0,-{@local.size.height},{@local.size.width},{@local.size.height}</string>
-											<key>endPos</key><string>0,0,{@local.size.width},{@local.size.height}</string>
-										</dict>
-									</dict>
-									<key>image_01</key>
-									<dict>
-										<key>effect</key>
-										<dict>
-											<key>duration</key><string>0.5</string>
-											<key>startPos</key><string>0,0,{@local.size.width},{@local.size.height}</string>
-											<key>endPos</key><string>0,{@local.size.height},{@local.size.width},{@local.size.height}</string>
-										</dict>
-									</dict>
-								</dict>								
-							</dict>
-							<dict>
-								<key>sequence</key>
-								<array>
-									<string>@local.anim.=(1)</string>
-								</array>
-							</dict>
-						</array>
-					</dict>
-				    <key>1</key>
-				    <dict>
-						<key>type</key><string>batch</string>
-						<key>Actions</key>
-						<array>
-							<dict>
-								<key>type</key><string>event</string>
-								<key>target</key><string>self</string>
-								<key>command</key><string>transition</string>
-								<key>components</key>
-								<dict>
-									<key>image_01</key>
-									<dict>
-										<key>effect</key>
-										<dict>
-											<key>duration</key><string>0.5</string>
-											<key>startPos</key><string>0,-{@local.size.height},{@local.size.width},{@local.size.height}</string>
-											<key>endPos</key><string>0,0,{@local.size.width},{@local.size.height}</string>
-										</dict>
-									</dict>
-									<key>image_02</key>
-									<dict>
-										<key>effect</key>
-										<dict>
-											<key>duration</key><string>0.5</string>
-											<key>startPos</key><string>0,0,{@local.size.width},{@local.size.height}</string>
-											<key>endPos</key><string>0,{@local.size.height},{@local.size.width},{@local.size.height}</string>
-										</dict>
-									</dict>
-								</dict>								
-							</dict>
-							<dict>
-								<key>sequence</key>
-								<array>
-									<string>@local.anim.=(0)</string>
-								</array>
-							</dict>
-						</array>				    
-					</dict>
-				</dict>
-			</array>
-		</dict>
-		
-		<key>detail_action</key>
-		<dict>
-			<key>type</key><string>batch</string>
-			<key>Actions</key>
-			<array>
-				<dict>
-					<key>type</key><string>event</string>
-					<key>command</key><string>createComponents</string>
-					<!--key>containerName</key><string>paenl_pop</string-->
-					<key>target</key><string>parent.parent.parent</string>
-					<key>components</key>
-					<dict>
-						<key>componentsOrder</key><string>detail_xform</string>
-						<key>detail_xform</key>
-						<dict>
-							<key>type</key><string>class</string>
-							<key>class</key><string>XFORM</string>
-							<key>pos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
-							<key target='ios'>pos</key><string>0,{@global.systemInfo.screenHeight},{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
-							<key>plist</key><string>views/detail_view.xml</string>
-							<key>extra</key>
-							<dict>
-								<key>parameter</key>
-								<dict>
-									<key>title</key><string>@title</string>
-								</dict>
-							</dict>
-						</dict>
-					</dict>
-				</dict>
-				<dict>
-					<key>type</key><string>event</string>
-					<key>target</key><string>parent.parent.parent</string>
-					<key>command</key><string>transition</string>
-					<key>components</key>
-					<dict>
-						<key>detail_xform</key>
-						<dict>
-							<key>effect</key>
-							<dict>
-								<key>duration</key><string>0.5</string>
-								<key>startPos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
-								<key>endPos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
-								<key target='ios'>startPos</key><string>0,{@global.systemInfo.screenHeight},{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
-								<key target='ios'>endPos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
-							</dict>
-						</dict>
-					</dict>
-				</dict>
-			</array>
-		</dict>
 		
 	</dict>
 </plist>

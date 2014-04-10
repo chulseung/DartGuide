@@ -6,7 +6,8 @@
 	printXmlLog=0;
     debug=10000;
 	projectName=[[NSString stringWithString:@"DUNAMIS_IPHONE"] retain];
-	disabled=-1000; 
+    disabled=-1000;
+    
     return self;
 }
 

@@ -6,7 +6,7 @@
 	* Author		:	Chulseung Lim
 	* Date			:	2014.03.26
 	* Changed Date	:	
-	* Functions		:	1) 
+	* Functions		:	1) 앱 실행 후 실행되는 메인 화면 
 	* 					2) 
 	****************************************************************************
  -->
@@ -16,6 +16,12 @@
         <key>bgcolor</key><string>0,0,0,1</string>		
 		<key>hidebackbtn</key><string>YES</string>
 		<key>hidenavbar</key><string>YES</string>
+
+		<!--key>dataProvider</key>
+		<dict>
+			<key>type</key><string>systemdb</string>
+			<key>sql</key><string>SELECT TITLE,DESC,IMAGE,URL FROM VIDEOINFO</string>
+		</dict-->
 		
 		<key>onBackButtonPressed</key>
 		<dict>
@@ -39,8 +45,14 @@
 			</array>
 		</dict>
 				
-		<key target='ios'>viewWillAppear</key>
+		<key>viewWillAppear</key>
 		<dict>
+			<key>sequence</key>
+			<array>
+		        <string>@system.log(========== home ========================)</string>
+		        <!--string>@system.log(@record._items(0).tabledata._items(0).TITLE)</string-->	
+			</array>
+			
 			<key>delay</key><string>1.0</string>
 			<key>type</key><string>event</string>
 			<key>target</key><string>self</string>
@@ -121,7 +133,7 @@
 						<key>type</key><string>class</string>
 						<key>class</key><string>XFORM</string>
 						<key>backgroundcolor</key><string>1,1,1,0</string>
-						<key>plist</key><string>views/scrollpage.xml</string>
+						<key>plist</key><string>content/scroll_view.xml</string>
 						<key>pos</key><string>0,60,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-80)}</string>
 						<key target='ios'>pos</key><string>0,60,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
 					</dict>
@@ -333,6 +345,8 @@
 							<key>effect</key>
 							<dict>
 								<key>duration</key><string>0.5</string>
+								<key>startAlpha</key><string>0</string>
+								<key>endAlpha</key><string>1</string>
 								<key>startPos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
 								<key>endPos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
 								<key target='ios'>startPos</key><string>0,{@global.systemInfo.screenHeight},{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>

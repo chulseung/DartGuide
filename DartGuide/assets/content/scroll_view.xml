@@ -1,81 +1,301 @@
+<!-- 
+	****************************************************************************
+	* Controller	:	scroll_view.xml - 스크롤 뷰 
+	* Company		:	MaxTED, inc.
+	* Department	:	Solution Dept.
+	* Author		:	Chulseung Lim
+	* Date			:	2014.03.26
+	* Changed Date	:	2014.04.10
+	* Functions		:	1) 스와이프 액션으로 좌우측으로 화면을 이동한다.
+	* 					2) home XFORM 안에 생성되는 스크롤 뷰.
+	*					3) 사용자가 동영상을 추가하거나 삭제할 경우 갱신된다.
+	****************************************************************************
+ -->
 <plist version="1.0">
 	<dict>
-		<key>title</key><string>SAMPLE</string>
+		<key>title</key><string>SCROLL_VIEW</string>
 		<key>bgcolor</key><string>1,1,1,0</string>
-		<key>hidenavbar</key><string>NO</string>
+		<key>hidenavbar</key><string>YES</string>
+		<key>hidebackbtn</key><string>YES</string>
+		
+		<key>dataProvider</key>
+		<dict>
+			<key>type</key><string>systemdb</string>
+			<key>sql</key><string>SELECT TITLE,DESC,IMAGE,URL,URL2 FROM VIDEOINFO WHERE STATE=1</string>
+		</dict>
+		
 		<key>localVariables</key>
 		<dict>
-			<key>dotPosX</key>
+			<key>count</key><string>0</string>
+			<key>2pages</key>
+			<dict>
+				<key>dotPosX</key>
+				<array>
+					<string>142</string>
+					<string>165</string>
+				</array>
+			</dict>
+			<key>3pages</key>
+			<dict>
+				<key>dotPosX</key>
+				<array>
+					<string>131</string>
+					<string>154</string>
+					<string>177</string>
+				</array>
+			</dict>
+			<key>4pages</key>
+			<dict>
+				<key>dotPosX</key>
+				<array>
+					<string>119</string>
+					<string>142</string>
+					<string>165</string>
+					<string>188</string>
+				</array>
+			</dict>
+			<key>5pages</key>
+			<dict>
+				<key>dotPosX</key>
+				<array>
+					<string>108</string>
+					<string>131</string>
+					<string>154</string>
+					<string>177</string>
+					<string>200</string>
+				</array>
+			</dict>
+		</dict>
+
+		<!-- 로드하면서 페이지 수를 세어온다. -->
+		<key>viewWillAppear</key>
+		<dict>
+			<key>sequence</key>
 			<array>
-				<string>100</string>
-				<string>129</string>
-				<string>158</string>
+				<string>@local.listData.=(@localdb.executeSql(SELECT COUNT() AS COUNT FROM VIDEOINFO WHERE STATE=1))</string>
+				<string>@local.count.=(@local.listData._items(0).COUNT)</string>
+				<string>@system.log(@local.count)</string>
+				<!--string>@global.data.=(@record._items(0))</string>
+				<string>@system.log(@global.data)</string-->
 			</array>
 		</dict>
+		
 		<key>onDidLoad</key>
 		<dict>
-			<key>type</key><string>event</string>
-			<key>command</key><string>createComponents</string>
-			<key>components</key>
+			<key>type</key><string>callAction</string>
+			<key>name</key><string>create_pages_action</string>
+		</dict>
+		
+		<key>components</key>
+		<dict>
+			<key>componentsOrder</key><string>panel_main</string>
+			<key>panel_main</key>
 			<dict>
-				<key>myLibrary_scrollPage</key>
+				<key>type</key><string>panel</string>
+				<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-80)}</string>
+				<key target='android'>doNotScale</key><string>YES</string><!--안드로이드에서 패널찌그러지지 않게 하기 위해서 사용-->
+				<key>backgroundcolor</key><string>1,1,1,1</string>
+				<key>components</key>
 				<dict>
-					<key>type</key><string>customview</string>
-					<key>class</key><string>XPageViewAdapter</string>
-					<key>pos</key><string>0,0,320,380</string>
-					<key>backgroundcolor</key><string>1,0,0,0.2</string>
-					<key>spineLocation</key><string>min</string>
-					<key>transitionStyle</key><string>scroll</string>
-					<key>contentTemplate</key><string>views/scrollpage_page.xml</string>
-					<key>viewDatas</key>
-					<array>
-						<dict>
-							<key>page</key><string>1</string>
-						</dict>
-						<dict>
-							<key>page</key><string>2</string>
-						</dict>
-						<dict>
-							<key>page</key><string>3</string>
-						</dict>
-					</array>
-					<key>onSelected</key>
+				</dict>
+			</dict>
+		</dict> <!-- components -->
+		
+		<key>create_pages_action</key>
+		<dict>
+			<key>type</key><string>condition</string>
+		    <key>selector</key><string><![CDATA[@local.count:?<9|2PAGES|{@local.count:?<17|3PAGES|4PAGES}]]></string>
+		    <!-- 기본 2 페이지 생성 -->
+		    <key>2PAGES</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>containerName</key><string>panel_main</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>myLibrary_scrollPage,bg_img,dot_img01,dot_img02,selectDot_img</string>
+					<key>myLibrary_scrollPage</key>
 					<dict>
-						<key>sequence</key>
+						<key>type</key><string>customview</string>
+						<key>class</key><string>XPageViewAdapter</string>
+						<key>pos</key><string>0,0,320,380</string>
+						<key>backgroundcolor</key><string>0,0,0,0.1</string>
+						<key>spineLocation</key><string>min</string>
+						<key>transitionStyle</key><string>scroll</string>
+						<key>contentTemplate</key><string>content/page_view.xml</string>
+						<key>viewDatas</key>
 						<array>
-							<string>@self.selectDot_img._move(@local.dotPosX._items({$sequence}),300,13,14)</string>
+							<dict>
+								<key>page</key><string>1</string>
+							</dict>
+							<dict>
+								<key>page</key><string>2</string>
+							</dict>
 						</array>
+						<key>onSelected</key>
+						<dict>
+							<key>sequence</key>
+							<array>
+								<string>@self.selectDot_img._move(@local.2pages.dotPosX._items({$sequence}),{@global.systemInfo.virtualHeight._add(-106)},13,13)</string>
+							</array>
+						</dict>
+					</dict>
+					<key>dot_img01</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>{@local.2pages.dotPosX._items(0)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+						<key>image</key><string>main_flickdot_off.png</string>
+					</dict>
+					<key>dot_img02</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>{@local.2pages.dotPosX._items(1)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+						<key>image</key><string>main_flickdot_off.png</string>
+					</dict>
+					<key>selectDot_img</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>{@local.2pages.dotPosX._items(0)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+						<key>image</key><string>main_flickdot_on.png</string>
 					</dict>
 				</dict>
 			</dict>
+			<!-- 3 페이지 생성 -->
+		    <key>3PAGES</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>containerName</key><string>panel_main</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>myLibrary_scrollPage,bg_img,dot_img01,dot_img02,dot_img03,selectDot_img</string>
+					<key>myLibrary_scrollPage</key>
+					<dict>
+						<key>type</key><string>customview</string>
+						<key>class</key><string>XPageViewAdapter</string>
+						<key>pos</key><string>0,0,320,380</string>
+						<key>backgroundcolor</key><string>1,0,0,0.2</string>
+						<key>spineLocation</key><string>min</string>
+						<key>transitionStyle</key><string>scroll</string>
+						<key>contentTemplate</key><string>content/scrollpage_page.xml</string>
+						<key>viewDatas</key>
+						<array>
+							<dict>
+								<key>page</key><string>1</string>
+							</dict>
+							<dict>
+								<key>page</key><string>2</string>
+							</dict>
+							<dict>
+								<key>page</key><string>3</string>
+							</dict>
+						</array>
+						<key>onSelected</key>
+						<dict>
+							<key>sequence</key>
+							<array>
+								<string>@self.selectDot_img._move(@local.3pages.dotPosX._items({$sequence}),{@global.systemInfo.virtualHeight._add(-106)},13,13)</string>
+							</array>
+						</dict>
+					</dict>
+					<key>dot_img01</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>{@local.3pages.dotPosX._item(0)},300,13,13</string>
+						<key>image</key><string>main_flickdot_off.png</string>
+					</dict>
+					<key>dot_img02</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>{@local.3pages.dotPosX._item(1)},300,13,13</string>
+						<key>image</key><string>main_flickdot_off.png</string>
+					</dict>
+					<key>dot_img03</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>{@local.3pages.dotPosX._item(2)},300,13,13</string>
+						<key>image</key><string>main_flickdot_off.png</string>
+					</dict>
+					<key>selectDot_img</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>{@local.3pages.dotPosX._item(0)},300,13,13</string>
+						<key>image</key><string>main_flickdot_on.png</string>
+					</dict>
+				</dict>				
+			</dict>
+			<!-- 4 페이지 생성 -->
+		    <key>4PAGES</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>containerName</key><string>panel_main</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>myLibrary_scrollPage,bg_img,dot_img01,dot_img02,dot_img03,dot_img04,selectDot_img</string>
+					<key>myLibrary_scrollPage</key>
+					<dict>
+						<key>type</key><string>customview</string>
+						<key>class</key><string>XPageViewAdapter</string>
+						<key>pos</key><string>0,0,320,380</string>
+						<key>backgroundcolor</key><string>1,0,0,0.2</string>
+						<key>spineLocation</key><string>min</string>
+						<key>transitionStyle</key><string>scroll</string>
+						<key>contentTemplate</key><string>content/scrollpage_page.xml</string>
+						<key>viewDatas</key>
+						<array>
+							<dict>
+								<key>page</key><string>1</string>
+							</dict>
+							<dict>
+								<key>page</key><string>2</string>
+							</dict>
+						</array>
+						<key>onSelected</key>
+						<dict>
+							<key>sequence</key>
+							<array>
+								<string>@self.selectDot_img._move({@local.4pages.dotPosX._items({$sequence})},{@global.systemInfo.virtualHeight._add(-106)},13,13)</string>
+							</array>
+						</dict>
+					</dict>
+					<key>dot_img01</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>{@local.4pages.dotPosX._item(0)},300,13,14</string>
+						<key>image</key><string>main_flickdot_off.png</string>
+					</dict>
+					<key>dot_img02</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>{@local.4pages.dotPosX._item(1)},300,13,14</string>
+						<key>image</key><string>main_flickdot_off.png</string>
+					</dict>
+					<key>dot_img03</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>{@local.4pages.dotPosX._item(2)},300,13,14</string>
+						<key>image</key><string>main_flickdot_off.png</string>
+					</dict>
+					<key>dot_img04</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>@local.4pages.dotPosX._item(3),300,13,14</string>
+						<key>image</key><string>main_flickdot_off.png</string>
+					</dict>
+					<key>selectDot_img</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>@local.4pages.dotPosX._item(0),300,13,14</string>
+						<key>image</key><string>main_flickdot_on.png</string>
+					</dict>
+				</dict>				
+			</dict>
 		</dict>
-		<key>components</key>
-		<dict>
-			<key>componentsOrder</key><string>bg_img,dot_img01,dot_img02,dot_img03,dot_img04,dot_img05,dot_img06,dot_img07,dot_img08,dot_img09,selectDot_img,myLibrary_scrollPage,top_menu,menu,info_btn</string>
-			<key>dot_img01</key>
-			<dict>
-				<key>type</key><string>image</string>
-				<key>pos</key><string>100,300,13,14</string>
-				<key>image</key><string>main_flickdot_off.png</string>
-			</dict>
-			<key>dot_img02</key>
-			<dict>
-				<key>type</key><string>image</string>
-				<key>pos</key><string>129,300,13,14</string>
-				<key>image</key><string>main_flickdot_off.png</string>
-			</dict>
-			<key>dot_img03</key>
-			<dict>
-				<key>type</key><string>image</string>
-				<key>pos</key><string>158,300,13,14</string>
-				<key>image</key><string>main_flickdot_off.png</string>
-			</dict>
-			<key>selectDot_img</key>
-			<dict>
-				<key>type</key><string>image</string>
-				<key>pos</key><string>100,300,13,14</string>
-				<key>image</key><string>main_flickdot_on.png</string>
-			</dict>
-		</dict>
+
+		
 	</dict>
 </plist>
