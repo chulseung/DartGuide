@@ -17,11 +17,11 @@
 		<key>hidebackbtn</key><string>YES</string>
 		<key>hidenavbar</key><string>YES</string>
 
-		<!--key>dataProvider</key>
+		<key>dataProvider</key>
 		<dict>
 			<key>type</key><string>systemdb</string>
-			<key>sql</key><string>SELECT TITLE,DESC,IMAGE,URL FROM VIDEOINFO</string>
-		</dict-->
+			<key>sql</key><string>SELECT TITLE,DESC,IMAGE,URL,URL2,STATE FROM VIDEOINFO</string>
+		</dict>
 		
 		<key>onBackButtonPressed</key>
 		<dict>
@@ -50,27 +50,66 @@
 			<key>sequence</key>
 			<array>
 		        <string>@system.log(========== home ========================)</string>
-		        <!--string>@system.log(@record._items(0).tabledata._items(0).TITLE)</string-->	
+		        <string>@global.listData.=(@record._items(0).tabledata)</string>
+		        <string>@system.log(@global.listData)</string>
 			</array>
 			
-			<key>delay</key><string>1.0</string>
-			<key>type</key><string>event</string>
-			<key>target</key><string>self</string>
-			<key>command</key><string>transition</string>
-			<key>components</key>
-			<dict>
-				<key>intro_img</key>
+			<key>type</key><string>batch</string>
+			<key>Actions</key>
+			<array>
 				<dict>
-					<key>effect</key>
+					<key>sequence</key>
+					<array>
+						<string>@local.listData.=(@localdb.executeSql(SELECT COUNT() AS COUNT FROM VIDEOINFO WHERE STATE=1))</string>
+						<!--string>@local.count.=(@local.listData._items(0).COUNT)</string-->
+					</array>
+				</dict>
+				<dict>
+					<key>type</key><string>event</string>
+					<key>command</key><string>createComponents</string>
+					<key>components</key>
 					<dict>
-						<key>duration</key><string>0.8</string>
-						<key>endPos</key><string>0,0,@global.systemInfo.virtualWidth,{@global.systemInfo.virtualHeight}</string>
-						<key target='ios'>endPos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
-						<key>startAlpha</key><string>1.0</string>
-						<key>endAlpha</key><string>0.0</string>
+						<key>componentsOrder</key><string>scroll_view</string>
+						<key>scroll_view</key>
+						<dict>
+							<key>type</key><string>class</string>
+							<key>class</key><string>XFORM</string>
+							<key>backgroundcolor</key><string>1,1,1,0</string>
+							<key>plist</key><string>content/scroll_view.xml</string>
+							<!--key>plist</key><string>content/scroll_view.xml</string-->
+							<key>pos</key><string>0,60,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-80)}</string>
+							<key target='ios'>pos</key><string>0,60,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
+							<key>extra</key>
+							<dict>
+								<key>parameter</key>
+								<dict>
+									<key>count</key><string>@local.listData._items(0).COUNT</string>
+								</dict>
+							</dict>
+						</dict>			
 					</dict>
 				</dict>
-			</dict>
+				<dict>
+					<key>delay</key><string>1.0</string>
+					<key>type</key><string>event</string>
+					<key>target</key><string>self</string>
+					<key>command</key><string>transition</string>
+					<key>components</key>
+					<dict>
+						<key>intro_img</key>
+						<dict>
+							<key>effect</key>
+							<dict>
+								<key>duration</key><string>0.8</string>
+								<key>endPos</key><string>0,0,@global.systemInfo.virtualWidth,{@global.systemInfo.virtualHeight}</string>
+								<key target='ios'>endPos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
+								<key>startAlpha</key><string>1.0</string>
+								<key>endAlpha</key><string>0.0</string>
+							</dict>
+						</dict>
+					</dict>					
+				</dict>				
+			</array>
 		</dict>
 		
 		<key target='android'>onDidLoad</key>
@@ -128,170 +167,6 @@
 					    	<key>name</key><string>menu_action</string>
 					    </dict>
 					</dict>
-					<key>scroll_view</key>
-					<dict>
-						<key>type</key><string>class</string>
-						<key>class</key><string>XFORM</string>
-						<key>backgroundcolor</key><string>1,1,1,0</string>
-						<key>plist</key><string>content/scroll_view.xml</string>
-						<key>pos</key><string>0,60,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-80)}</string>
-						<key target='ios'>pos</key><string>0,60,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
-					</dict>
-					
-					
-					<!--key>content_view1</key>
-					<dict>
-						<key>type</key><string>class</string>
-						<key>class</key><string>XFORM</string>
-						<key>pos</key><string>12,60,143,84</string>
-						<key>plist</key><string>views/content_view.xml</string>
-						<key>extra</key>
-						<dict>
-							<key>parameter</key>
-							<dict>
-								<key>title</key><string>다트 1</string>
-								<key>desc</key><string>다트가 뭔가요?</string>
-								<key>img</key><string>menu1.png</string>
-								<key>width</key><string>143</string>
-								<key>height</key><string>84</string>
-								<key>myDelay</key><string>0.5</string>
-							</dict>
-						</dict>
-					</dict>
-					<key>content_view2</key>
-					<dict>
-						<key>type</key><string>class</string>
-						<key>class</key><string>XFORM</string>
-						<key>pos</key><string>165,60,143,84</string>
-						<key>plist</key><string>views/content_view.xml</string>
-						<key>extra</key>
-						<dict>
-							<key>parameter</key>
-							<dict>
-								<key>title</key><string>다트 2</string>
-								<key>desc</key><string>다트 자세 배우기</string>
-								<key>img</key><string>menu3.png</string>
-								<key>width</key><string>143</string>
-								<key>height</key><string>84</string>
-								<key>myDelay</key><string>1.0</string>
-							</dict>
-						</dict>
-					</dict>
-					<key>content_view3</key>
-					<dict>
-						<key>type</key><string>class</string>
-						<key>class</key><string>XFORM</string>
-						<key>pos</key><string>12,154,143,84</string>
-						<key>plist</key><string>views/content_view.xml</string>
-						<key>extra</key>
-						<dict>
-							<key>parameter</key>
-							<dict>
-								<key>title</key><string>다트 3</string>
-								<key>desc</key><string>다트가 왕창 점수내기</string>
-								<key>img</key><string>menu4.png</string>
-								<key>width</key><string>143</string>
-								<key>height</key><string>94</string>
-								<key>myDelay</key><string>0.5</string>
-							</dict>
-						</dict>
-					</dict>
-					<key>content_view4</key>
-					<dict>
-						<key>type</key><string>class</string>
-						<key>class</key><string>XFORM</string>
-						<key>pos</key><string>165,154,143,84</string>
-						<key>plist</key><string>views/content_view.xml</string>
-						<key>extra</key>
-						<dict>
-							<key>parameter</key>
-							<dict>
-								<key>title</key><string>다트 4</string>
-								<key>desc</key><string>다트가 기초를 알아봄</string>
-								<key>img</key><string>menu2.png</string>
-								<key>width</key><string>143</string>
-								<key>height</key><string>94</string>
-								<key>myDelay</key><string>1.0</string>
-							</dict>
-						</dict>
-					</dict>			
-					<key>content_view5</key>
-					<dict>
-						<key>type</key><string>class</string>
-						<key>class</key><string>XFORM</string>
-						<key>pos</key><string>12,248,143,84</string>
-						<key>plist</key><string>views/content_view.xml</string>
-						<key>extra</key>
-						<dict>
-							<key>parameter</key>
-							<dict>
-								<key>title</key><string>다트 1</string>
-								<key>desc</key><string>다트가 뭔가요?</string>
-								<key>img</key><string>menu1.png</string>
-								<key>width</key><string>143</string>
-								<key>height</key><string>94</string>
-								<key>myDelay</key><string>0.5</string>
-							</dict>
-						</dict>
-					</dict>
-					<key>content_view6</key>
-					<dict>
-						<key>type</key><string>class</string>
-						<key>class</key><string>XFORM</string>
-						<key>pos</key><string>165,248,143,84</string>
-						<key>plist</key><string>views/content_view.xml</string>
-						<key>extra</key>
-						<dict>
-							<key>parameter</key>
-							<dict>
-								<key>title</key><string>다트 2</string>
-								<key>desc</key><string>다트 자세 배우기</string>
-								<key>img</key><string>menu3.png</string>
-								<key>width</key><string>143</string>
-								<key>height</key><string>94</string>
-								<key>myDelay</key><string>1.0</string>
-							</dict>
-						</dict>
-					</dict>
-					<key>content_view7</key>
-					<dict>
-						<key>type</key><string>class</string>
-						<key>class</key><string>XFORM</string>
-						<key>pos</key><string>12,342,143,84</string>
-						<key>plist</key><string>views/content_view.xml</string>
-						<key>extra</key>
-						<dict>
-							<key>parameter</key>
-							<dict>
-								<key>title</key><string>다트 3</string>
-								<key>desc</key><string>다트가 왕창 점수내기</string>
-								<key>img</key><string>menu4.png</string>
-								<key>width</key><string>143</string>
-								<key>height</key><string>94</string>
-								<key>myDelay</key><string>0.5</string>
-							</dict>
-						</dict>
-					</dict>
-					<key>content_view8</key>
-					<dict>
-						<key>type</key><string>class</string>
-						<key>class</key><string>XFORM</string>
-						<key>pos</key><string>165,342,143,84</string>
-						<key>plist</key><string>views/content_view.xml</string>
-						<key>extra</key>
-						<dict>
-							<key>parameter</key>
-							<dict>
-								<key>title</key><string>다트 4</string>
-								<key>desc</key><string>다트가 기초를 알아봄</string>
-								<key>img</key><string>menu2.png</string>
-								<key>width</key><string>143</string>
-								<key>height</key><string>94</string>
-								<key>myDelay</key><string>1.0</string>
-							</dict>
-						</dict>
-					</dict-->					
-					
 					<key>intro_img</key>
 					<dict>
 						<key>type</key><string>image</string>

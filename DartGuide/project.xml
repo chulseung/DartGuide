@@ -475,6 +475,8 @@
 				<string>A80858C118E2BEA000CDD266</string>
 				<string>A808588918E2BEA000CDD266</string>
 				<string>3950407a9045438abce31a159be532ff</string>
+				<string>be9cc217357b4484999466fde7346ac6</string>
+				<string>8bffee53ad8c4972bceda072ac20cd6c</string>
 			</array>
 			<key>isa</key>
 			<string>PBXResourcesBuildPhase</string>
@@ -813,6 +815,8 @@
 				<string>219535c57cde461cb9eebcdcde014c41</string>
 				<string>2cf4384f27684e41b38101d067b12293</string>
 				<string>de95a4f90147445ca4ee5b729101b893</string>
+				<string>e778b58a414440529ffecc9e0a739ff7</string>
+				<string>b1a49fa8da734281a22013f9bc4483ae</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -1612,6 +1616,13 @@
 			<string>com.apple.xcode.plist.structure-definition.iphone.info-plist</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8bffee53ad8c4972bceda072ac20cd6c</key>
+		<dict>
+			<key>fileRef</key>
+			<string>b1a49fa8da734281a22013f9bc4483ae</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>A808583218E2BEA000CDD266</key>
 		<dict>
@@ -3404,6 +3415,26 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>b1a49fa8da734281a22013f9bc4483ae</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xml</string>
+			<key>name</key>
+			<string>db.xml</string>
+			<key>path</key>
+			<string>../assets/db.xml</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>be9cc217357b4484999466fde7346ac6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>e778b58a414440529ffecc9e0a739ff7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>de95a4f90147445ca4ee5b729101b893</key>
 		<dict>
 			<key>isa</key>
@@ -3414,6 +3445,19 @@
 			<string>content</string>
 			<key>path</key>
 			<string>../assets/content</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>e778b58a414440529ffecc9e0a739ff7</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xml</string>
+			<key>name</key>
+			<string>database.xml</string>
+			<key>path</key>
+			<string>../assets/database.xml</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>

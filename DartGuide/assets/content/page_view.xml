@@ -14,13 +14,14 @@
 <plist version="1.0">
 	<dict>
 		<key>title</key><string>PAGE_VIEW</string>
-		<key>bgcolor</key><string>0.5,0.5,0.5,0</string>
+		<key>bgcolor</key><string>0,0,0,0</string>
 		<key>hidenavbar</key><string>YES</string>
 		<key>hidebackbtn</key><string>YES</string>
 		
 		<key>localVariables</key>
 		<dict>
-			<key>list</key><string>0</string>
+			<key>rest_value</key><string>0</string>
+			<key>div_value</key><string>0</string>
 			<key>size</key>
 			<dict>
 				<key>width</key><string>0</string>
@@ -28,13 +29,7 @@
 			</dict>
 		</dict>
 		
-		<key target='ios'>viewWillAppear</key>
-		<dict>
-			<key>type</key><string>callAction</string>
-			<key>name</key><string>create_page_action</string>
-		</dict> <!-- viewWillAppear -->
-		
-		<key target='android'>onDidLoad</key>
+		<key>viewWillAppear</key>
 		<dict>
 			<key>type</key><string>batch</string>
 			<key>Actions</key>
@@ -42,11 +37,24 @@
 				<dict>
 					<key>sequence</key>
 					<array>
-						<string><![CDATA[@local.listData.=(@localdb.executeSql(SELECT * FROM VIDEOINFO WHERE STATE=1))]]></string>
-						<!--string>@system.log(@local.listData)</string>
-						<string>@system.log(@extra.parameter.page)</string-->
+						<!-- 여기서 카운트 센다 -->
+						<string>@local.div_value.=(@parent.local.count._div(8))</string>
+						<string>@local.rest_value.=(@parent.local.count._add(-{@local.div_value._mult(8)}))</string>
+						<string>@system.log(나눈값:{@local.div_value} / 나머지값: {@local.rest_value})</string>
 					</array>
 				</dict>
+				<dict>
+					<key>type</key><string>callAction</string>
+					<key>name</key><string>create_page_action</string>
+				</dict>
+			</array>
+		</dict> <!-- viewWillAppear -->
+		
+		<key target='android'>onDidLoad</key>
+		<dict>
+			<key>type</key><string>batch</string>
+			<key>Actions</key>
+			<array>
 				<dict>
 					<key>type</key><string>callAction</string>
 					<key>name</key><string>create_page_action</string>
@@ -84,11 +92,11 @@
 						<dict>
 							<key>parameter</key>
 							<dict>
-								<key>title</key><string>@local.listData._items(0).TITLE</string>
-								<key>desc</key><string>@local.listData._items(0).DESC</string>
-								<key>img</key><string>@local.listData._items(0).IMAGE</string>
-								<key target='android'>url</key><string>@local.listData._items(0).URL</string>
-								<key target='ios'>url</key><string>@local.listData._items(0).URL2</string>
+								<key>title</key><string>@global.listData._items(0).TITLE</string>
+								<key>desc</key><string>@global.listData._items(0).DESC</string>
+								<key>img</key><string>@global.listData._items(0).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(0).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(0).URL2</string>
 								<key>width</key><string>143</string>
 								<key>height</key><string>84</string>
 								<key>myDelay</key><string>1.0</string>
@@ -105,11 +113,11 @@
 						<dict>
 							<key>parameter</key>
 							<dict>
-								<key>title</key><string>@local.listData._items(1).TITLE</string>
-								<key>desc</key><string>@local.listData._items(1).DESC</string>
-								<key>img</key><string>@local.listData._items(1).IMAGE</string>
-								<key target='android'>url</key><string>@local.listData._items(1).URL</string>
-								<key target='ios'>url</key><string>@local.listData._items(1).URL2</string>
+								<key>title</key><string>@global.listData._items(1).TITLE</string>
+								<key>desc</key><string>@global.listData._items(1).DESC</string>
+								<key>img</key><string>@global.listData._items(1).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(1).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(1).URL2</string>
 								<key>width</key><string>143</string>
 								<key>height</key><string>84</string>
 								<key>myDelay</key><string>2.0</string>
@@ -126,11 +134,11 @@
 						<dict>
 							<key>parameter</key>
 							<dict>
-								<key>title</key><string>@local.listData._items(2).TITLE</string>
-								<key>desc</key><string>@local.listData._items(2).DESC</string>
-								<key>img</key><string>@local.listData._items(2).IMAGE</string>
-								<key target='android'>url</key><string>@local.listData._items(2).URL</string>
-								<key target='ios'>url</key><string>@local.listData._items(2).URL2</string>
+								<key>title</key><string>@global.listData._items(2).TITLE</string>
+								<key>desc</key><string>@global.listData._items(2).DESC</string>
+								<key>img</key><string>@global.listData._items(2).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(2).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(2).URL2</string>
 								<key>width</key><string>143</string>
 								<key>height</key><string>94</string>
 								<key>myDelay</key><string>1.0</string>
@@ -147,11 +155,11 @@
 						<dict>
 							<key>parameter</key>
 							<dict>
-								<key>title</key><string>@local.listData._items(3).TITLE</string>
-								<key>desc</key><string>@local.listData._items(3).DESC</string>
-								<key>img</key><string>@local.listData._items(3).IMAGE</string>
-								<key target='android'>url</key><string>@local.listData._items(3).URL</string>
-								<key target='ios'>url</key><string>@local.listData._items(3).URL2</string>
+								<key>title</key><string>@global.listData._items(3).TITLE</string>
+								<key>desc</key><string>@global.listData._items(3).DESC</string>
+								<key>img</key><string>@global.listData._items(3).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(3).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(3).URL2</string>
 								<key>width</key><string>143</string>
 								<key>height</key><string>94</string>
 								<key>myDelay</key><string>2.0</string>
@@ -168,11 +176,11 @@
 						<dict>
 							<key>parameter</key>
 							<dict>
-								<key>title</key><string>@local.listData._items(4).TITLE</string>
-								<key>desc</key><string>@local.listData._items(4).DESC</string>
-								<key>img</key><string>@local.listData._items(4).IMAGE</string>
-								<key target='android'>url</key><string>@local.listData._items(4).URL</string>
-								<key target='ios'>url</key><string>@local.listData._items(4).URL2</string>
+								<key>title</key><string>@global.listData._items(4).TITLE</string>
+								<key>desc</key><string>@global.listData._items(4).DESC</string>
+								<key>img</key><string>@global.listData._items(4).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(4).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(4).URL2</string>
 								<key>width</key><string>143</string>
 								<key>height</key><string>94</string>
 								<key>myDelay</key><string>1.0</string>
@@ -189,11 +197,11 @@
 						<dict>
 							<key>parameter</key>
 							<dict>
-								<key>title</key><string>@local.listData._items(5).TITLE</string>
-								<key>desc</key><string>@local.listData._items(5).DESC</string>
-								<key>img</key><string>@local.listData._items(5).IMAGE</string>
-								<key target='android'>url</key><string>@local.listData._items(5).URL</string>
-								<key target='ios'>url</key><string>@local.listData._items(5).URL2</string>
+								<key>title</key><string>@global.listData._items(5).TITLE</string>
+								<key>desc</key><string>@global.listData._items(5).DESC</string>
+								<key>img</key><string>@global.listData._items(5).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(5).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(5).URL2</string>
 								<key>width</key><string>143</string>
 								<key>height</key><string>94</string>
 								<key>myDelay</key><string>2.0</string>
@@ -210,11 +218,11 @@
 						<dict>
 							<key>parameter</key>
 							<dict>
-								<key>title</key><string>@local.listData._items(6).TITLE</string>
-								<key>desc</key><string>@local.listData._items(6).DESC</string>
-								<key>img</key><string>@local.listData._items(6).IMAGE</string>
-								<key target='android'>url</key><string>@local.listData._items(6).URL</string>
-								<key target='ios'>url</key><string>@local.listData._items(6).URL2</string>
+								<key>title</key><string>@global.listData._items(6).TITLE</string>
+								<key>desc</key><string>@global.listData._items(6).DESC</string>
+								<key>img</key><string>@global.listData._items(6).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(6).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(6).URL2</string>
 								<key>width</key><string>143</string>
 								<key>height</key><string>94</string>
 								<key>myDelay</key><string>1.0</string>
@@ -231,11 +239,11 @@
 						<dict>
 							<key>parameter</key>
 							<dict>
-								<key>title</key><string>@local.listData._items(7).TITLE</string>
-								<key>desc</key><string>@local.listData._items(7).DESC</string>
-								<key>img</key><string>@local.listData._items(7).IMAGE</string>
-								<key target='android'>url</key><string>@local.listData._items(7).URL</string>
-								<key target='ios'>url</key><string>@local.listData._items(7).URL2</string>
+								<key>title</key><string>@global.listData._items(7).TITLE</string>
+								<key>desc</key><string>@global.listData._items(7).DESC</string>
+								<key>img</key><string>@global.listData._items(7).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(7).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(7).URL2</string>
 								<key>width</key><string>143</string>
 								<key>height</key><string>94</string>
 								<key>myDelay</key><string>2.0</string>
@@ -306,39 +314,14 @@
 				    <key>selector</key><string><![CDATA[@parent.local.count:?<17|YES|NO]]></string>
 				    <key>YES</key>
 				    <dict>
-
 						<key>type</key><string>batch</string>
+						<key>repeat</key><string></string>
 						<key>Actions</key>
 						<array>
 							<dict>
-								<key>type</key><string>condition</string>
-							    <key>selector</key><string><![CDATA[@parent.local.count:?<10|YES|NO]]></string>
-							    <key>YES</key>
-							    <dict>
-									<key>type</key><string>callAction</string>
-									<key>name</key><string>create_view_action</string>
-									<key>extra</key>
-									<dict>
-										<key>parameter</key>
-										<dict>
-											<key>title</key><string>content_view1</string>
-											<key>posX</key><string>10</string>
-											<key>posY</key><string>0</string>
-											<key>num</key><string>9</string>
-										</dict>
-									</dict>
-								</dict>
-							    <key>NO</key>
-							    <dict>
-									<!-- 조건 2 -->
-								</dict>
-
-							</dict>
-							<dict>
-								<!--action02-->
+								
 							</dict>
 						</array>
-						
 					</dict>
 				    <key>NO</key>
 				    <dict>
@@ -453,7 +436,7 @@
 			</dict>
 		</dict>
 		
-		
+		<!-- 콘텐츠 뷰 생성 -->
 		<key>create_view_action</key>
 		<dict>
 			<key>type</key><string>event</string>
@@ -486,57 +469,6 @@
 		</dict>
 
 		
-		<!-- 두번째 콘텐츠 페이지 생성 -->
-		<key>second_page_action</key>
-		<dict>
-			<key>type</key><string>batch</string>
-			<key>repeat</key><string>@parent.local.count._add(-8)</string>
-			<key>Actions</key>
-			<array>
-				<dict>
-					<key>type</key><string>event</string>
-					<key>command</key><string>createComponents</string>
-					<key>containerName</key><string>form_panel</string>
-					<key>components</key>
-					<dict>
-						<!--key>componentsOrder</key><string></string-->
-						<key>content_view{@local.list}</key>
-						<dict>
-							<key>type</key><string>class</string>
-							<key>class</key><string>XFORM</string>
-							<key>pos</key><string>10._add(),0,143,84</string>
-							<key>plist</key><string>content/content_view.xml</string>
-							<key>extra</key>
-							<dict>
-								<key>parameter</key>
-								<dict>
-									<key>title</key><string>@local.listData._items(0).TITLE</string>
-									<key>desc</key><string>@local.listData._items(0).DESC</string>
-									<key>img</key><string>@local.listData._items(0).IMAGE</string>
-									<key target='android'>url</key><string>@local.listData._items(0).URL</string>
-									<key target='ios'>url</key><string>@local.listData._items(0).URL2</string>
-									<key>width</key><string>143</string>
-									<key>height</key><string>84</string>
-									<key>myDelay</key><string>1.0</string>
-								</dict>
-							</dict>
-						</dict>
-						
-					</dict>
-				</dict>
-				<dict>
-					
-				</dict>
-			</array>
-		</dict>
-		
-		<!-- 세번쨰 콘텐츠 페이지 생성 -->
-		<key>third_page_action</key>
-		<dict>
-
-		</dict>
-
-
 		<!-- 동영상 추가 페이지 생성 -->
 		<key>additional_page_action</key>
 		<dict>
