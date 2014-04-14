@@ -20,8 +20,8 @@
 		
 		<key>localVariables</key>
 		<dict>
-			<key>rest_value</key><string>0</string>
-			<key>div_value</key><string>0</string>
+			<key>temp</key><string>0</string>
+			<key>num</key><string>8</string>
 			<key>size</key>
 			<dict>
 				<key>width</key><string>0</string>
@@ -29,7 +29,7 @@
 			</dict>
 		</dict>
 		
-		<key>viewWillAppear</key>
+		<!--key>viewWillAppear</key>
 		<dict>
 			<key>type</key><string>batch</string>
 			<key>Actions</key>
@@ -37,10 +37,10 @@
 				<dict>
 					<key>sequence</key>
 					<array>
-						<!-- 여기서 카운트 센다 -->
 						<string>@local.div_value.=(@parent.local.count._div(8))</string>
 						<string>@local.rest_value.=(@parent.local.count._add(-{@local.div_value._mult(8)}))</string>
 						<string>@system.log(나눈값:{@local.div_value} / 나머지값: {@local.rest_value})</string>
+						<string>@system.log(나눈값 테스트:{8._div(8)})</string>
 					</array>
 				</dict>
 				<dict>
@@ -48,9 +48,9 @@
 					<key>name</key><string>create_page_action</string>
 				</dict>
 			</array>
-		</dict> <!-- viewWillAppear -->
+		</dict--> <!-- viewWillAppear -->
 		
-		<key target='android'>onDidLoad</key>
+		<key>onDidLoad</key>
 		<dict>
 			<key>type</key><string>batch</string>
 			<key>Actions</key>
@@ -65,7 +65,7 @@
 		
 		<key>components</key>
 		<dict>
-			
+			<key>componentsOrder</key><string>content_view1,content_view2,content_view3,content_view4,content_view5,content_view6,content_view7,content_view8</string>
 		</dict> <!-- components -->
 		
 
@@ -73,7 +73,7 @@
 		<dict>
 			<key>type</key><string>condition</string>
 		    <key>selector</key><string>@extra.parameter.page</string>
-		    <key>1</key> <!-- page 1 -->
+		    <key>0</key> <!-- page 1 -->
 		    <dict>
 				<key>type</key><string>event</string>
 				<key>command</key><string>createComponents</string>
@@ -86,7 +86,7 @@
 					<dict>
 						<key>type</key><string>class</string>
 						<key>class</key><string>XFORM</string>
-						<key>pos</key><string>10,0,143,84</string>
+						<key>pos</key><string>12,0,143,84</string>
 						<key>plist</key><string>content/content_view.xml</string>
 						<key>extra</key>
 						<dict>
@@ -252,14 +252,14 @@
 					</dict>
 				</dict>
 			</dict>
-		    <key>2</key>
+		    <key>1</key>
 		    <dict>
 				<key>type</key><string>condition</string>
 			    <key>selector</key><string><![CDATA[@parent.local.count:?<9|YES|NO]]></string>
 			    <key>YES</key>
 			    <dict>
 					<!-- 동영상 추가 페이지 -->
-					<key>type</key><string>event</string>
+					<!--key>type</key><string>event</string>
 					<key>command</key><string>createComponents</string>
 					<key>target</key><string>self</string>
 					<key>components</key>
@@ -302,92 +302,149 @@
 								</dict>
 							</dict>
 						</dict>
-					</dict>
-					<!-- callAction에서 화면을 만드는 callAction을 호출할 수 없는건가??? 진짜 미스테리 -->
-					<!--key>tyep</key><string>callAction</string>
-					<key>name</key><string>additional_page_action</string-->
+					</dict-->
+					<!-- callAction에서 화면을 만드는 callAction을 호출할 수 없는건가??? 이건 해결함. 오타였음.-->
+					<!-- 여기서 콜액션을 사용하면 페이지 뷰의 스크롤에 따른 화면 생성이 계속 이뤄지는 문제가 있다. -->
+					<key>type</key><string>callAction</string>
+					<key>name</key><string>additional_page_action</string>
 				</dict>
 			    <key>NO</key>
 			    <dict>
-					<!-- 여기서 조건 추가 : 16이 넘는 지 아닌 지 -->
-					<key>type</key><string>condition</string>
+	    			<key>type</key><string>condition</string>
 				    <key>selector</key><string><![CDATA[@parent.local.count:?<17|YES|NO]]></string>
 				    <key>YES</key>
 				    <dict>
-						<key>type</key><string>batch</string>
-						<key>repeat</key><string></string>
-						<key>Actions</key>
-						<array>
-							<dict>
-								
-							</dict>
-						</array>
+						<key>type</key><string>callAction</string>
+						<key>name</key><string>create_second_page_action1</string>
 					</dict>
 				    <key>NO</key>
 				    <dict>
-						
-					</dict>
+						<key>type</key><string>callAction</string>
+						<key>name</key><string>create_second_page_action2</string>
+					</dict>							
+	    
+			    
+					<!-- 여기서 조건 추가 : 16이 넘는 지 아닌 지 -->
+					<!--key>type</key><string>batch</string>
+					<key>Actions</key>
+					<array>
+						<dict>
+							<key>type</key><string>condition</string>
+						    <key>selector</key><string><![CDATA[@parent.local.count:?<17|YES|NO]]></string>
+						    <key>YES</key>
+						    <dict>
+
+							</dict>
+
+						    <key>NO</key>
+						    <dict>
+							</dict>							
+						</dict>
+						<dict>
+							<key>type</key><string>callAction</string>
+							<key>name</key><string>check_component_action</string>
+						</dict>
+					</array--><!-- 생성 카운트 체크: 생성한 컴포넌트 중 값이 없는 것은 hidden처리한다. -->
 				</dict>
 			</dict>
-		    <key>3</key>
+		    <key>2</key>
 		    <dict>
 				<key>type</key><string>condition</string>
 			    <key>selector</key><string><![CDATA[@parent.local.count:?<17|YES|NO]]></string>
 			    <key>YES</key>
 			    <dict>
 					<!-- 동영상 추가 페이지 -->
-					<key>type</key><string>event</string>
-					<key>command</key><string>createComponents</string>
-					<key>target</key><string>self</string>
-					<key>components</key>
-					<dict>
-						<key>componentsOrder</key><string>content_view1,content_view2</string>
-						<key>content_view1</key>
-						<dict>
-							<key>type</key><string>class</string>
-							<key>class</key><string>XFORM</string>
-							<key>pos</key><string>10,0,143,84</string>
-							<key>plist</key><string>content/content_view2.xml</string>
-							<key>extra</key>
-							<dict>
-								<key>parameter</key>
-								<dict>
-									<key>function</key><string>SITE</string>
-									<key target='android'>url</key><string>http://www.phoenixdart.com/kr</string>
-									<key target='ios'>url</key><string>http://www.phoenixdart.com/kr</string>
-									<key>width</key><string>143</string>
-									<key>height</key><string>84</string>
-								</dict>
-							</dict>
-						</dict>
-						<key>content_view2</key>
-						<dict>
-							<key>type</key><string>class</string>
-							<key>class</key><string>XFORM</string>
-							<key>pos</key><string>165,0,143,84</string>
-							<key>plist</key><string>content/content_view2.xml</string>
-							<key>extra</key>
-							<dict>
-								<key>parameter</key>
-								<dict>
-									<key>function</key><string>ADD</string>
-									<key>img</key><string>main_add.png</string>
-									<key target='android'>url</key><string>http://www.phoenixdart.com/kr</string>
-									<key target='ios'>url</key><string>http://www.phoenixdart.com/kr</string>
-									<key>width</key><string>143</string>
-									<key>height</key><string>84</string>
-								</dict>
-							</dict>
-						</dict>
-					</dict>					
+					<key>type</key><string>callAction</string>
+					<key>name</key><string>additional_page_action</string>
 				</dict>
 			    <key>NO</key>
 			    <dict>
-					
+					<!-- 3번쨰 페이지 -->
+					<key>type</key><string>callAction</string>
+					<key>name</key><string>create_third_page_action</string>
 				</dict>
-				
 			</dict>
-		    <key>4</key>
+		    <key>3</key>
+		    <dict>
+				<key>type</key><string>callAction</string>
+				<key>name</key><string>additional_page_action</string>
+			</dict>
+		</dict>
+		
+		<!-- 콘텐츠 뷰 생성 -->
+		<!-- 콤포넌트 키가 동적으로 할당이 되지 않는다...아...아...아... -->
+		<!--key>create_view_action</key>
+		<dict>
+			<key>sequence</key>
+			<array>
+				<string>@system.log(@title)</string>
+				<string>@system.log(@local.temp)</string>
+				<string>@system.log(@parent.local.div_value._mult(8)._add(@local.temp))</string>
+			</array>
+			<key>type</key><string>event</string>
+			<key>command</key><string>createComponents</string>
+			<key>target</key><string>self</string>
+			<key>components</key>
+			<dict>
+				<key>componentsOrder</key><string>content_view1,content_view2,content_view3,content_view4,content_view5,content_view6,content_view7,content_view8</string>
+				<key>content_view{@local.temp}</key>
+				<dict>
+					<key>type</key><string>class</string>
+					<key>class</key><string>XFORM</string>
+					<key>pos</key><string>10,0,143,84</string>
+					<key>plist</key><string>content/content_view.xml</string>
+					<key>extra</key>
+					<dict>
+						<key>parameter</key>
+						<dict>
+							<key>title</key><string>@global.listData._items(@parent.local.div_value._mult(8)._add(@local.temp)).TITLE</string>
+							<key>desc</key><string>@global.listData._items(@parent.local.div_value._mult(8)._add(@local.temp)).DESC</string>
+							<key>img</key><string>@global.listData._items(@parent.local.div_value._mult(8)._add(@local.temp)).IMAGE</string>
+							<key target='android'>url</key><string>@global.listData._items(@parent.local.div_value._mult(8)._add(@local.temp)).URL</string>
+							<key target='ios'>url</key><string>@global.listData._items(@parent.local.div_value._mult(8)._add(@local.temp)).URL2</string>
+							<key>width</key><string>143</string>
+							<key>height</key><string>84</string>
+						</dict>
+					</dict>
+				</dict>   
+			</dict>
+		</dict-->
+		
+		<key>create_second_page_action1</key>
+		<dict>
+			<key>type</key><string>condition</string>
+		    <key>selector</key><string>@parent.local.count</string>
+		    <key>9</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>content_view1</string>
+					<key>content_view1</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>10,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(0)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(0)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(0)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(0)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(0)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>
+				</dict>
+			</dict>
+		    <key>10</key>
 		    <dict>
 				<key>type</key><string>event</string>
 				<key>command</key><string>createComponents</string>
@@ -400,14 +457,16 @@
 						<key>type</key><string>class</string>
 						<key>class</key><string>XFORM</string>
 						<key>pos</key><string>10,0,143,84</string>
-						<key>plist</key><string>content/content_view2.xml</string>
+						<key>plist</key><string>content/content_view.xml</string>
 						<key>extra</key>
 						<dict>
 							<key>parameter</key>
 							<dict>
-								<key>function</key><string>SITE</string>
-								<key target='android'>url</key><string>http://www.phoenixdart.com/kr</string>
-								<key target='ios'>url</key><string>http://www.phoenixdart.com/kr</string>
+								<key>title</key><string>@global.listData._items(@local.num._add(0)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(0)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(0)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(0)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(0)).URL2</string>
 								<key>width</key><string>143</string>
 								<key>height</key><string>84</string>
 							</dict>
@@ -418,53 +477,1077 @@
 						<key>type</key><string>class</string>
 						<key>class</key><string>XFORM</string>
 						<key>pos</key><string>165,0,143,84</string>
-						<key>plist</key><string>content/content_view2.xml</string>
+						<key>plist</key><string>content/content_view.xml</string>
 						<key>extra</key>
 						<dict>
 							<key>parameter</key>
 							<dict>
-								<key>function</key><string>ADD</string>
-								<key>img</key><string>main_add.png</string>
-								<key target='android'>url</key><string>http://www.phoenixdart.com/kr</string>
-								<key target='ios'>url</key><string>http://www.phoenixdart.com/kr</string>
+								<key>title</key><string>@global.listData._items(@local.num._add(1)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(1)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(1)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(1)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(1)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>   
+				</dict>
+			</dict>
+		    <key>11</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>content_view1,content_view2,content_view3</string>
+					<key>content_view1</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>10,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(0)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(0)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(0)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(0)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(0)).URL2</string>
 								<key>width</key><string>143</string>
 								<key>height</key><string>84</string>
 							</dict>
 						</dict>
 					</dict>
-				</dict>				
+					<key>content_view2</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(1)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(1)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(1)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(1)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(1)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>   
+					<key>content_view3</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,94,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(2)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(2)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(2)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(2)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(2)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+				</dict>
+			</dict>
+		    <key>12</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>content_view1,content_view2,content_view3,content_view4</string>
+					<key>content_view1</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>10,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(0)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(0)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(0)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(0)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(0)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view2</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(1)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(1)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(1)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(1)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(1)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>   
+					<key>content_view3</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,94,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(2)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(2)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(2)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(2)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(2)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+					<key>content_view4</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,94,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(3)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(3)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(3)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(3)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(3)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 							 
+				</dict>
+
+			</dict>
+		    <key>13</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>content_view1,content_view2,content_view3,content_view4,content_view5</string>
+					<key>content_view1</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>10,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(0)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(0)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(0)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(0)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(0)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view2</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(1)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(1)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(1)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(1)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(1)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>   
+					<key>content_view3</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,94,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(2)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(2)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(2)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(2)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(2)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+					<key>content_view4</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,94,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(3)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(3)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(3)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(3)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(3)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+					<key>content_view5</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,188,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(4)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(4)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(4)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@@local.num._add(4)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(4)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 							 
+				</dict>
+
+			</dict>
+		    <key>14</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>content_view1,content_view2,content_view3,content_view4,content_view5,content_view6</string>
+					<key>content_view1</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>10,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(0)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(0)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(0)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(0)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(0)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view2</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(1)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(1)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(1)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(1)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(1)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>   
+					<key>content_view3</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,94,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(2)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(2)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(2)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(2)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(2)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+					<key>content_view4</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,94,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(3)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(3)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(3)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(3)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(3)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+					<key>content_view5</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,188,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(4)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(4)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(4)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@@local.num._add(4)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(4)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+					<key>content_view6</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,188,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(5)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(5)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(5)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(5)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(5)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>							 
+				</dict>
+
+			</dict>
+		    <key>15</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>content_view1,content_view2,content_view3,content_view4,content_view5,content_view6,content_view7</string>
+					<key>content_view1</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>10,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(0)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(0)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(0)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(0)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(0)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view2</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(1)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(1)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(1)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(1)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(1)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>   
+					<key>content_view3</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,94,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(2)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(2)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(2)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(2)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(2)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+					<key>content_view4</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,94,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(3)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(3)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(3)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(3)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(3)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+					<key>content_view5</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,188,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(4)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(4)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(4)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@@local.num._add(4)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(4)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+					<key>content_view6</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,188,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(5)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(5)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(5)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(5)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(5)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view7</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,282,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(6)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(6)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(6)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(6)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(6)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>							 
+				</dict>
+
+			</dict>
+		    <key>16</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>content_view1,content_view2,content_view3,content_view4,content_view5,content_view6,content_view7,content_view8</string>
+					<key>content_view1</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>10,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(0)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(0)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(0)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(0)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(0)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view2</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(1)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(1)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(1)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(1)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(1)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>   
+					<key>content_view3</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,94,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(2)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(2)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(2)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(2)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(2)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+					<key>content_view4</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,94,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(3)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(3)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(3)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(3)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(3)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+					<key>content_view5</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,188,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(4)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(4)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(4)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@@local.num._add(4)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(4)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+					<key>content_view6</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,188,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(5)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(5)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(5)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(5)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(5)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view7</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,282,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(6)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(6)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(6)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(6)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(6)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view8</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,282,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@local.num._add(7)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@local.num._add(7)).DESC</string>
+								<key>img</key><string>@global.listData._items(@local.num._add(7)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@local.num._add(7)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@local.num._add(7)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 							 
+				</dict>
+		
 			</dict>
 		</dict>
 		
-		<!-- 콘텐츠 뷰 생성 -->
-		<key>create_view_action</key>
+		<key>create_second_page_action2</key>
 		<dict>
 			<key>type</key><string>event</string>
 			<key>command</key><string>createComponents</string>
 			<key>target</key><string>self</string>
 			<key>components</key>
 			<dict>
-				<key>@title</key>
+				<key>componentsOrder</key><string>content_view1,content_view2,content_view3,content_view4,content_view5,content_view6,content_view7,content_view8</string>
+				<key>content_view1</key>
 				<dict>
 					<key>type</key><string>class</string>
 					<key>class</key><string>XFORM</string>
-					<key>pos</key><string>@posX,@posY,143,84</string>
+					<key>pos</key><string>10,0,143,84</string>
 					<key>plist</key><string>content/content_view.xml</string>
 					<key>extra</key>
 					<dict>
 						<key>parameter</key>
 						<dict>
-							<key>title</key><string>@local.listData._items(@num).TITLE</string>
-							<key>desc</key><string>@local.listData._items(@num).DESC</string>
-							<key>img</key><string>@local.listData._items(@num).IMAGE</string>
-							<key target='android'>url</key><string>@local.listData._items(@num).URL</string>
-							<key target='ios'>url</key><string>@local.listData._items(@num).URL2</string>
+							<key>title</key><string>@global.listData._items(@local.num._add(0)).TITLE</string>
+							<key>desc</key><string>@global.listData._items(@local.num._add(0)).DESC</string>
+							<key>img</key><string>@global.listData._items(@local.num._add(0)).IMAGE</string>
+							<key target='android'>url</key><string>@global.listData._items(@local.num._add(0)).URL</string>
+							<key target='ios'>url</key><string>@global.listData._items(@local.num._add(0)).URL2</string>
 							<key>width</key><string>143</string>
 							<key>height</key><string>84</string>
-							<key>myDelay</key><string>1.0</string>
 						</dict>
 					</dict>
 				</dict>
+				<key>content_view2</key>
+				<dict>
+					<key>type</key><string>class</string>
+					<key>class</key><string>XFORM</string>
+					<key>pos</key><string>165,0,143,84</string>
+					<key>plist</key><string>content/content_view.xml</string>
+					<key>extra</key>
+					<dict>
+						<key>parameter</key>
+						<dict>
+							<key>title</key><string>@global.listData._items(@local.num._add(1)).TITLE</string>
+							<key>desc</key><string>@global.listData._items(@local.num._add(1)).DESC</string>
+							<key>img</key><string>@global.listData._items(@local.num._add(1)).IMAGE</string>
+							<key target='android'>url</key><string>@global.listData._items(@local.num._add(1)).URL</string>
+							<key target='ios'>url</key><string>@global.listData._items(@local.num._add(1)).URL2</string>
+							<key>width</key><string>143</string>
+							<key>height</key><string>84</string>
+						</dict>
+					</dict>
+				</dict>   
+				<key>content_view3</key>
+				<dict>
+					<key>type</key><string>class</string>
+					<key>class</key><string>XFORM</string>
+					<key>pos</key><string>12,94,143,84</string>
+					<key>plist</key><string>content/content_view.xml</string>
+					<key>extra</key>
+					<dict>
+						<key>parameter</key>
+						<dict>
+							<key>title</key><string>@global.listData._items(@local.num._add(2)).TITLE</string>
+							<key>desc</key><string>@global.listData._items(@local.num._add(2)).DESC</string>
+							<key>img</key><string>@global.listData._items(@local.num._add(2)).IMAGE</string>
+							<key target='android'>url</key><string>@global.listData._items(@local.num._add(2)).URL</string>
+							<key target='ios'>url</key><string>@global.listData._items(@local.num._add(2)).URL2</string>
+							<key>width</key><string>143</string>
+							<key>height</key><string>84</string>
+						</dict>
+					</dict>
+				</dict> 
+				<key>content_view4</key>
+				<dict>
+					<key>type</key><string>class</string>
+					<key>class</key><string>XFORM</string>
+					<key>pos</key><string>165,94,143,84</string>
+					<key>plist</key><string>content/content_view.xml</string>
+					<key>extra</key>
+					<dict>
+						<key>parameter</key>
+						<dict>
+							<key>title</key><string>@global.listData._items(@local.num._add(3)).TITLE</string>
+							<key>desc</key><string>@global.listData._items(@local.num._add(3)).DESC</string>
+							<key>img</key><string>@global.listData._items(@local.num._add(3)).IMAGE</string>
+							<key target='android'>url</key><string>@global.listData._items(@local.num._add(3)).URL</string>
+							<key target='ios'>url</key><string>@global.listData._items(@local.num._add(3)).URL2</string>
+							<key>width</key><string>143</string>
+							<key>height</key><string>84</string>
+						</dict>
+					</dict>
+				</dict> 
+				<key>content_view5</key>
+				<dict>
+					<key>type</key><string>class</string>
+					<key>class</key><string>XFORM</string>
+					<key>pos</key><string>12,188,143,84</string>
+					<key>plist</key><string>content/content_view.xml</string>
+					<key>extra</key>
+					<dict>
+						<key>parameter</key>
+						<dict>
+							<key>title</key><string>@global.listData._items(@local.num._add(4)).TITLE</string>
+							<key>desc</key><string>@global.listData._items(@local.num._add(4)).DESC</string>
+							<key>img</key><string>@global.listData._items(@local.num._add(4)).IMAGE</string>
+							<key target='android'>url</key><string>@global.listData._items(@@local.num._add(4)).URL</string>
+							<key target='ios'>url</key><string>@global.listData._items(@local.num._add(4)).URL2</string>
+							<key>width</key><string>143</string>
+							<key>height</key><string>84</string>
+						</dict>
+					</dict>
+				</dict> 
+				<key>content_view6</key>
+				<dict>
+					<key>type</key><string>class</string>
+					<key>class</key><string>XFORM</string>
+					<key>pos</key><string>165,188,143,84</string>
+					<key>plist</key><string>content/content_view.xml</string>
+					<key>extra</key>
+					<dict>
+						<key>parameter</key>
+						<dict>
+							<key>title</key><string>@global.listData._items(@local.num._add(5)).TITLE</string>
+							<key>desc</key><string>@global.listData._items(@local.num._add(5)).DESC</string>
+							<key>img</key><string>@global.listData._items(@local.num._add(5)).IMAGE</string>
+							<key target='android'>url</key><string>@global.listData._items(@local.num._add(5)).URL</string>
+							<key target='ios'>url</key><string>@global.listData._items(@local.num._add(5)).URL2</string>
+							<key>width</key><string>143</string>
+							<key>height</key><string>84</string>
+						</dict>
+					</dict>
+				</dict>
+				<key>content_view7</key>
+				<dict>
+					<key>type</key><string>class</string>
+					<key>class</key><string>XFORM</string>
+					<key>pos</key><string>12,282,143,84</string>
+					<key>plist</key><string>content/content_view.xml</string>
+					<key>extra</key>
+					<dict>
+						<key>parameter</key>
+						<dict>
+							<key>title</key><string>@global.listData._items(@local.num._add(6)).TITLE</string>
+							<key>desc</key><string>@global.listData._items(@local.num._add(6)).DESC</string>
+							<key>img</key><string>@global.listData._items(@local.num._add(6)).IMAGE</string>
+							<key target='android'>url</key><string>@global.listData._items(@local.num._add(6)).URL</string>
+							<key target='ios'>url</key><string>@global.listData._items(@local.num._add(6)).URL2</string>
+							<key>width</key><string>143</string>
+							<key>height</key><string>84</string>
+						</dict>
+					</dict>
+				</dict>
+				<key>content_view8</key>
+				<dict>
+					<key>type</key><string>class</string>
+					<key>class</key><string>XFORM</string>
+					<key>pos</key><string>165,282,143,84</string>
+					<key>plist</key><string>content/content_view.xml</string>
+					<key>extra</key>
+					<dict>
+						<key>parameter</key>
+						<dict>
+							<key>title</key><string>@global.listData._items(@local.num._add(7)).TITLE</string>
+							<key>desc</key><string>@global.listData._items(@local.num._add(7)).DESC</string>
+							<key>img</key><string>@global.listData._items(@local.num._add(7)).IMAGE</string>
+							<key target='android'>url</key><string>@global.listData._items(@local.num._add(7)).URL</string>
+							<key target='ios'>url</key><string>@global.listData._items(@local.num._add(7)).URL2</string>
+							<key>width</key><string>143</string>
+							<key>height</key><string>84</string>
+						</dict>
+					</dict>
+				</dict> 							 
+			</dict>
+		</dict>
+
+
+		<key>create_third_page_action</key>
+		<dict>
+			<key>type</key><string>condition</string>
+		    <key>selector</key><string>@parent.local.count</string>
+		    <key>17</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>content_view1</string>
+					<key>content_view1</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>10,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).DESC</string>
+								<key>img</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>
+					
+				</dict>	
+
+			</dict>
+		    <key>18</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>content_view1,content_view2</string>
+					<key>content_view1</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>10,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).DESC</string>
+								<key>img</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view2</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(1)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(1)).DESC</string>
+								<key>img</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(1)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(1)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(1)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+				</dict>	
+			</dict>
+		    <key>19</key>
+		    <dict>
+				<key>type</key><string>event</string>
+				<key>command</key><string>createComponents</string>
+				<key>target</key><string>self</string>
+				<key>components</key>
+				<dict>
+					<key>componentsOrder</key><string>content_view1,content_view2,content_view3</string>
+					<key>content_view1</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>10,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).DESC</string>
+								<key>img</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(0)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>content_view2</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>165,0,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(1)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(1)).DESC</string>
+								<key>img</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(1)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(1)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(1)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict>   
+					<key>content_view3</key>
+					<dict>
+						<key>type</key><string>class</string>
+						<key>class</key><string>XFORM</string>
+						<key>pos</key><string>12,94,143,84</string>
+						<key>plist</key><string>content/content_view.xml</string>
+						<key>extra</key>
+						<dict>
+							<key>parameter</key>
+							<dict>
+								<key>title</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(2)).TITLE</string>
+								<key>desc</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(2)).DESC</string>
+								<key>img</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(2)).IMAGE</string>
+								<key target='android'>url</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(2)).URL</string>
+								<key target='ios'>url</key><string>@global.listData._items(@parent.local.div_value._mult(@local.num)._add(2)).URL2</string>
+								<key>width</key><string>143</string>
+								<key>height</key><string>84</string>
+							</dict>
+						</dict>
+					</dict> 
+				</dict>	
 			</dict>
 		</dict>
 
@@ -474,7 +1557,6 @@
 		<dict>
 			<key>type</key><string>event</string>
 			<key>command</key><string>createComponents</string>
-			<!--key>containerName</key><string>form_panel</string-->
 			<key>target</key><string>self</string>
 			<key>components</key>
 			<dict>

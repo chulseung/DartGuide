@@ -3,6 +3,7 @@ package com.maxted.DartGuide;
 import java.util.Hashtable;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
@@ -18,10 +19,9 @@ public class XVideoViewAdapter extends XAdapter {
 	// http://stackoverflow.com/questions/9733455/mediaplayer-error-4-4
 	
 	LinearLayout flayout;
-	VideoView vv; 
+	VideoView vv=null;
+	boolean isPause = false;
 
-	final static String SrcPath = "http://cctvsec.ktict.co.kr/4198/vqJ3aiys0RqqiStovQHpWsf1whSmwyMblBUdSk/cPrC4QXoAcRkLgjIgK4zM/xlh";
-	
 	@Override
 	public Object initWithDict(Hashtable dict, PROTO target) {
 		// TODO Auto-generated method stub
@@ -37,18 +37,42 @@ public class XVideoViewAdapter extends XAdapter {
 		Hashtable data = new Hashtable();
 		data = (Hashtable)extra.get("parameter");
 		
+		String url = data.get("url").toString();
+		MANAGER.log("URL:+++++++++++++"+url);
+		
 		if(vv==null){
 			flayout = new LinearLayout(this.context);
 			flayout.setOrientation(LinearLayout.HORIZONTAL);
 			//flayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 			
 			vv = new VideoView(this.context);
+			MediaController mediaController= new MediaController(this.context);
+		    mediaController.setAnchorView(vv);        
+		   
+		    Uri uri=Uri.parse(url);        
+		    vv.setMediaController(mediaController);
+		    vv.setVideoURI(uri);        
+		    vv.requestFocus();
+		    
+		    int pos = 0;
+//		    if (MANAGER.savedInstanceState != null) {
+//		        pos = savedInstanceState.getInt("pos");
+//		    }
+		    
+		    playVideo(pos);			
+			
 			flayout.addView(vv);
 		}
 		
 		return super.initWithDict(dict, target);
 	}
 
+	public void playVideo(int position) {
+		
+		vv.seekTo(position);
+		vv.start();
+	}
+	
 	@Override
 	public View getView() {
 		// TODO Auto-generated method stub
@@ -63,29 +87,25 @@ public class XVideoViewAdapter extends XAdapter {
 		MANAGER.log("uri: "+uri);
 		
 		try {
-			changeVideo(uri);
 			MANAGER.log("play http video");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		
-		
 		return super.getData(commands);
 	}
 
-	private void changeVideo(String uriString) {
-		vv.setVideoURI(Uri.parse(SrcPath));
-		//vv.setMediaController(new MediaController(this.context));
-		vv.requestFocus();
-		vv.start();
-	}
 	
 	
 	@Override
 	public void freeData() {
 		// TODO Auto-generated method stub
-		vv = null;
+		
+		if (vv != null) {
+			vv = null;
+			flayout = null;
+		}
 		
 		super.freeData();
 	}

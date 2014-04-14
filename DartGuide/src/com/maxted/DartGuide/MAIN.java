@@ -56,6 +56,8 @@ public class MAIN extends  flashbox.ANDROID.DELEGATE
 	public String returnData="";
 	public Hashtable customAction=null;
 	public static final byte[] secureKey = {'m','o','b','i','l','e','t','k','l','i','g','a','d','m','i','n'}; 
+	
+	public VideoView vv=null;
 
 	public String filterString(String option, String value, Hashtable record) {
 		try{
@@ -393,6 +395,17 @@ public class MAIN extends  flashbox.ANDROID.DELEGATE
 		}
 		*/
 	}
+
+	
+	//	@Override
+//	protected void onSaveInstanceState(Bundle outState) {
+//		// TODO Auto-generated method stub
+//		if (vv.isPlaying()) outState.putInt("pos", vv.getCurrentPosition());
+//		
+//		super.onSaveInstanceState(outState);
+//	}
+	
+	
 }
 
 

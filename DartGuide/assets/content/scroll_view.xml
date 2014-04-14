@@ -26,7 +26,9 @@
 		
 		<key>localVariables</key>
 		<dict>
-			<key>count</key><string>0</string>
+			<key>count</key><string>@extra.parameter.count:default=0</string>
+			<key>div_value</key><string>0</string>
+			<key>rest_value</key><string>0</string>
 			<key>2pages</key>
 			<dict>
 				<key>dotPosX</key>
@@ -82,8 +84,11 @@
 			<key>sequence</key>
 			<array>
 		        <string>@global.listData.=(@record._items(0).tabledata)</string>
+				<string>@local.div_value.=(@local.count._div(8))</string>
+				<string>@local.rest_value.=(@local.count._add(-{@local.div_value._mult(8)}))</string>
 		        <string>@system.log(@global.listData)</string>
 			</array>
+
 			<key>type</key><string>condition</string>
 		    <key>selector</key><string><![CDATA[@extra.parameter.count:?<9|2PAGES|{@extra.parameter.count:?<17|3PAGES|4PAGES}]]></string>
 		    <key>2PAGES</key>
@@ -122,10 +127,10 @@
 								<key>viewDatas</key>
 								<array>
 									<dict>
-										<key>page</key><string>1</string>
+										<key>page</key><string>0</string>
 									</dict>
 									<dict>
-										<key>page</key><string>2</string>
+										<key>page</key><string>1</string>
 									</dict>
 								</array>
 								<key>onSelected</key>
@@ -175,13 +180,13 @@
 								<key>viewDatas</key>
 								<array>
 									<dict>
+										<key>page</key><string>0</string>
+									</dict>
+									<dict>
 										<key>page</key><string>1</string>
 									</dict>
 									<dict>
 										<key>page</key><string>2</string>
-									</dict>
-									<dict>
-										<key>page</key><string>3</string>
 									</dict>
 								</array>
 								<key>onSelected</key>
@@ -230,6 +235,9 @@
 								<key>viewDatas</key>
 								<array>
 									<dict>
+										<key>page</key><string>0</string>
+									</dict>
+									<dict>
 										<key>page</key><string>1</string>
 									</dict>
 									<dict>
@@ -237,9 +245,6 @@
 									</dict>
 									<dict>
 										<key>page</key><string>3</string>
-									</dict>
-									<dict>
-										<key>page</key><string>4</string>
 									</dict>
 								</array>
 								<key>onSelected</key>
