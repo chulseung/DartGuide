@@ -32,7 +32,9 @@
 				<key>class</key><string>XLIST</string>
 				<key>backgroundcolor</key><string>1,1,1,0</string>
 				<key>plist</key><string>views/list.xml</string>
-				<key>pos</key><string>0,80,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-200)}</string>  
+				<key target='android'>pos</key><string>0,80,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-200)}</string>
+				<key target='ios'>pos</key><string>0,80,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-200)}</string>
+				<key target='ios7'>pos</key><string>0,80,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-200)}</string>  
 			</dict>
 		</dict> <!-- components -->
 		

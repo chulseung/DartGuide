@@ -29,15 +29,19 @@
 				<key>width</key><string>@extra.parameter.width:default=</string>
 				<key>height</key><string>@extra.parameter.height:default=</string>
 			</dict>
+			<key>len</key><string>0</string>
+			<key>lines</key><string>0</string>
 		</dict> <!-- localVariables -->
 		
 		<key>viewWillAppear</key>
 		<dict>
-			<!--key>sequence</key>
+			<key>sequence</key>
 			<array>
-				<string>@system.log(@local.title)</string>
-				<string>@system.log(@extra.parameter.title)</string>
-			</array-->
+				<string>@local.len.=(@extra.parameter.desc._strlen))</string>
+				<string>@system.log(@extra.parameter.desc._strlen))</string>
+				<string>@local.lines.=(@local.len._div(35)._add(1)))</string>
+			</array>
+
 		</dict> <!-- viewWillAppear -->
 		
 		<key>components</key>
@@ -106,6 +110,7 @@
 									<key>desc</key><string>@local.desc</string>
 									<key>img</key><string>@local.img</string>
 									<key>url</key><string>@local.url</string>
+									<key>lines</key><string>@local.lines</string>
 								</dict>
 							</dict>
 						</dict>
@@ -132,6 +137,7 @@
 				</dict>
 			</array>
 		</dict>		
+
 		
 	</dict>
 </plist>

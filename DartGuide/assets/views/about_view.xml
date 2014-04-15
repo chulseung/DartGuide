@@ -22,7 +22,9 @@
 			<key>image_info</key>
 			<dict>
 				<key>type</key><string>image</string>
-				<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-100)}</string>
+				<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-120)}</string>
+				<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-120)}</string>
+				<key target='ios7'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-120)}</string>
 				<key>image</key><string>ko_info.png</string>
 			</dict>
 		</dict> <!-- components -->

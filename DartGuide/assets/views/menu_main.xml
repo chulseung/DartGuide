@@ -55,7 +55,7 @@
 					<key>button_back</key>
 					<dict>
 						<key>type</key><string>button</string>
-						<key>pos</key><string>5,4,69,40</string>
+						<key>pos</key><string>5,4,56,40</string>
 					    <key>buttonimage</key><string>backbtn1_off.png</string>
 					    <key>buttonimagepressed</key><string>backbtn1_on.png</string>
 		                <key>action</key>
@@ -94,6 +94,7 @@
 						<key>backgroundcolor</key><string>1,1,1,1</string>
 						<key>plist</key><string>views/setting_view.xml</string>
 						<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-100)}</string>    
+						<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
 						<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>    
 					</dict>
 				</dict>
@@ -102,7 +103,8 @@
 			<dict>
 				<key>type</key><string>panel</string>
 				<key>pos</key><string>0,{@global.systemInfo.virtualHeight._add(-72)},{@global.systemInfo.virtualWidth},52</string>
-				<key target='ios'>pos</key><string>0,{@global.systemInfo.screenHeight._add(-72)},{@global.systemInfo.screenWidth},52</string>
+				<key target='ios'>pos</key><string>0,{@global.systemInfo.screenHeight._add(-72)},{@global.systemInfo.screenWidth},48</string>
+				<key target='ios'>pos</key><string>0,{@global.systemInfo.screenHeight._add(-72)},{@global.systemInfo.screenWidth},48</string>
 				<key>backgroundcolor</key><string>0,0,0,1</string>
 				<key>backgroundimage</key><string>bt_bg.png</string>			
 				<key>components</key>
@@ -112,7 +114,7 @@
 					<dict>
 						<key>type</key><string>button</string>
 						<key>group</key><string>button_01,button_02,button_03,button_04</string>
-						<key>pos</key><string>0,0,80,52</string>
+						<key>pos</key><string>0,4,80,52</string>
 					    <key>buttonimage</key><string>bt_hm_off.png</string>
 					    <key>buttonimagepressed</key><string>bt_hm_on.png</string>
 						<key>action</key>
@@ -136,7 +138,7 @@
 					<dict>
 						<key>type</key><string>button</string>
 						<key>group</key><string>button_01,button_02,button_03,button_04</string>
-						<key>pos</key><string>80,0,80,52</string>
+						<key>pos</key><string>80,4,80,52</string>
 					    <key>buttonimage</key><string>bt_st_off.png</string>
 					    <key>buttonimagepressed</key><string>bt_st_on.png</string>
 						<key>action</key>
@@ -168,7 +170,7 @@
 					<dict>
 						<key>type</key><string>button</string>
 						<key>group</key><string>button_01,button_02,button_03,button_04</string>
-						<key>pos</key><string>160,0,80,52</string>
+						<key>pos</key><string>160,4,80,52</string>
 					    <key>buttonimage</key><string>bt_ct_off.png</string>
 					    <key>buttonimagepressed</key><string>bt_ct_on.png</string>
 						<key>action</key>
@@ -200,7 +202,7 @@
 					<dict>
 						<key>type</key><string>button</string>
 						<key>group</key><string>button_01,button_02,button_03,button_04</string>
-						<key>pos</key><string>240,0,80,52</string>
+						<key>pos</key><string>240,4,80,52</string>
 					    <key>buttonimage</key><string>bt_op_off.png</string>
 					    <key>buttonimagepressed</key><string>bt_op_on.png</string>
 						<key>action</key>
@@ -285,6 +287,7 @@
 					<key>plist</key><string>views/{@menu}</string>
 					<key>pos</key><string>0,0,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-100)}</string>
 					<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
+					<key target='ios7'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
 				</dict>
 			</dict>
 		</dict>

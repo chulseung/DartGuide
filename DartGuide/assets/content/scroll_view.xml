@@ -70,13 +70,14 @@
 		</dict>
 
 		<!-- 로드하면서 페이지 수를 세어온다. -->
-		<key>viewWillAppear</key>
+		<key target='ios'>viewWillAppear</key>
 		<dict>
 			<!--key>sequence</key>
 			<array>
 				<string><![CDATA[@local.listData.=(@localdb.executeSql(SELECT TITLE,DESC,IMAGE,URL,URL2 FROM VIDEOINFO WHERE STATE=1))]]></string>
 				<string>@system.log(@local.listData)</string>
 			</array-->
+			
 		</dict>
 		
 		<key>onDidLoad</key>
@@ -86,7 +87,7 @@
 		        <string>@global.listData.=(@record._items(0).tabledata)</string>
 				<string>@local.div_value.=(@local.count._div(8))</string>
 				<string>@local.rest_value.=(@local.count._add(-{@local.div_value._mult(8)}))</string>
-		        <string>@system.log(@global.listData)</string>
+		        <!--string>@system.log(@global.listData)</string-->
 			</array>
 
 			<key>type</key><string>condition</string>
@@ -106,7 +107,16 @@
 							<string>@self.dot_img07._hide</string>
 							<string>@self.dot_img08._hide</string>
 							<string>@self.dot_img09._hide</string>
+						</array>
+					</dict>
+					<dict>
+						<key target='android'>sequence</key>
+						<array>
 							<string>@self.selectDot_img._move(@local.2pages.dotPosX._items(0),{@global.systemInfo.virtualHeight._add(-106)},13,13)</string>
+						</array>
+						<key target='ios'>sequence</key>
+						<array>
+							<string>@self.selectDot_img._move(@local.2pages.dotPosX._items(0),{@global.systemInfo.screenHeight._add(-96)},13,13)</string>
 						</array>
 					</dict>
 					<dict>
@@ -119,7 +129,8 @@
 							<dict>
 								<key>type</key><string>customview</string>
 								<key>class</key><string>XPageViewAdapter</string>
-								<key>pos</key><string>0,0,320,380</string>
+								<key target='android'>pos</key><string>0,0,320,380</string>
+								<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenHeight},{@global.systemInfo.screenHeight._add(-100)}</string>
 								<key>backgroundcolor</key><string>1,0,0,0.2</string>
 								<key>spineLocation</key><string>min</string>
 								<key>transitionStyle</key><string>scroll</string>
@@ -135,9 +146,13 @@
 								</array>
 								<key>onSelected</key>
 								<dict>
-									<key>sequence</key>
+									<key target='android'>sequence</key>
 									<array>
 										<string>@self.selectDot_img._move(@local.2pages.dotPosX._items({$sequence}),{@global.systemInfo.virtualHeight._add(-106)},13,13)</string>
+									</array>
+									<key target='ios'>sequence</key>
+									<array>
+										<string>@self.selectDot_img._move(@local.2pages.dotPosX._items({$sequence}),{@global.systemInfo.screenHeight._add(-96)},13,13)</string>
 									</array>
 								</dict>
 							</dict>			
@@ -159,7 +174,16 @@
 							<string>@self.dot_img07._hide</string>
 							<string>@self.dot_img08._hide</string>
 							<string>@self.dot_img09._hide</string>
+						</array>
+					</dict>
+					<dict>
+						<key target='android'>sequence</key>
+						<array>
 							<string>@self.selectDot_img._move(@local.3pages.dotPosX._items(0),{@global.systemInfo.virtualHeight._add(-106)},13,13)</string>
+						</array>
+						<key target='ios'>sequence</key>
+						<array>
+							<string>@self.selectDot_img._move(@local.3pages.dotPosX._items(0),{@global.systemInfo.screenHeight._add(-96)},13,13)</string>
 						</array>
 					</dict>
 					<dict>
@@ -172,7 +196,8 @@
 							<dict>
 								<key>type</key><string>customview</string>
 								<key>class</key><string>XPageViewAdapter</string>
-								<key>pos</key><string>0,0,320,380</string>
+								<key target='android'>pos</key><string>0,0,320,380</string>
+								<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
 								<key>backgroundcolor</key><string>1,0,0,0.2</string>
 								<key>spineLocation</key><string>min</string>
 								<key>transitionStyle</key><string>scroll</string>
@@ -191,9 +216,13 @@
 								</array>
 								<key>onSelected</key>
 								<dict>
-									<key>sequence</key>
+									<key target='android'>sequence</key>
 									<array>
 										<string>@self.selectDot_img._move(@local.3pages.dotPosX._items({$sequence}),{@global.systemInfo.virtualHeight._add(-106)},13,13)</string>
+									</array>
+									<key target='ios'>sequence</key>
+									<array>
+										<string>@self.selectDot_img._move(@local.3pages.dotPosX._items({$sequence}),{@global.systemInfo.screenHeight._add(-96)},13,13)</string>
 									</array>
 								</dict>
 							</dict>			
@@ -214,7 +243,16 @@
 							<string>@self.dot_img03._hide</string>
 							<string>@self.dot_img04._hide</string>
 							<string>@self.dot_img05._hide</string>
+						</array>
+					</dict>
+					<dict>
+						<key target='android'>sequence</key>
+						<array>
 							<string>@self.selectDot_img._move(@local.4pages.dotPosX._items(0),{@global.systemInfo.virtualHeight._add(-106)},13,13)</string>
+						</array>
+						<key target='ios'>sequence</key>
+						<array>
+							<string>@self.selectDot_img._move(@local.4pages.dotPosX._items(0),{@global.systemInfo.screenHeight._add(-96)},13,13)</string>
 						</array>
 					</dict>
 					<dict>
@@ -227,7 +265,8 @@
 							<dict>
 								<key>type</key><string>customview</string>
 								<key>class</key><string>XPageViewAdapter</string>
-								<key>pos</key><string>0,0,320,380</string>
+								<key target='android'>pos</key><string>0,0,320,380</string>
+								<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
 								<key>backgroundcolor</key><string>1,0,0,0.2</string>
 								<key>spineLocation</key><string>min</string>
 								<key>transitionStyle</key><string>scroll</string>
@@ -249,9 +288,13 @@
 								</array>
 								<key>onSelected</key>
 								<dict>
-									<key>sequence</key>
+									<key target='android'>sequence</key>
 									<array>
 										<string>@self.selectDot_img._move(@local.4pages.dotPosX._items({$sequence}),{@global.systemInfo.virtualHeight._add(-106)},13,13)</string>
+									</array>
+									<key target='ios'>sequence</key>
+									<array>
+										<string>@self.selectDot_img._move(@local.4pages.dotPosX._items({$sequence}),{@global.systemInfo.screenHeight._add(-96)},13,13)</string>
 									</array>
 								</dict>
 							</dict>			
@@ -269,60 +312,70 @@
 			<dict>
 				<key>type</key><string>image</string>
 				<key>pos</key><string>{@local.2pages.dotPosX._items(0)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+				<key target='ios'>pos</key><string>{@local.2pages.dotPosX._items(0)},{@global.systemInfo.screenHeight._add(-96)},13,13</string>
 				<key>image</key><string>main_flickdot_off.png</string>
 			</dict>
 			<key>dot_img02</key>
 			<dict>
 				<key>type</key><string>image</string>
 				<key>pos</key><string>{@local.2pages.dotPosX._items(1)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+				<key target='ios'>pos</key><string>{@local.2pages.dotPosX._items(1)},{@global.systemInfo.screenHeight._add(-96)},13,13</string>
 				<key>image</key><string>main_flickdot_off.png</string>
 			</dict>
 			<key>dot_img03</key>
 			<dict>
 				<key>type</key><string>image</string>
 				<key>pos</key><string>{@local.3pages.dotPosX._items(0)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+				<key target='ios'>pos</key><string>{@local.3pages.dotPosX._items(0)},{@global.systemInfo.screenHeight._add(-96)},13,13</string>
 				<key>image</key><string>main_flickdot_off.png</string>
 			</dict>
 			<key>dot_img04</key>
 			<dict>
 				<key>type</key><string>image</string>
 				<key>pos</key><string>{@local.3pages.dotPosX._items(1)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+				<key target='ios'>pos</key><string>{@local.3pages.dotPosX._items(1)},{@global.systemInfo.screenHeight._add(-96)},13,13</string>
 				<key>image</key><string>main_flickdot_off.png</string>
 			</dict>
 			<key>dot_img05</key>
 			<dict>
 				<key>type</key><string>image</string>
 				<key>pos</key><string>{@local.3pages.dotPosX._items(2)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+				<key target='ios'>pos</key><string>{@local.3pages.dotPosX._items(2)},{@global.systemInfo.screenHeight._add(-96)},13,13</string>
 				<key>image</key><string>main_flickdot_off.png</string>
 			</dict>
 			<key>dot_img06</key>
 			<dict>
 				<key>type</key><string>image</string>
 				<key>pos</key><string>{@local.4pages.dotPosX._items(0)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+				<key target='ios'>pos</key><string>{@local.4pages.dotPosX._items(0)},{@global.systemInfo.screenHeight._add(-96)},13,13</string>
 				<key>image</key><string>main_flickdot_off.png</string>
 			</dict>
 			<key>dot_img07</key>
 			<dict>
 				<key>type</key><string>image</string>
 				<key>pos</key><string>{@local.4pages.dotPosX._items(1)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+				<key target='ios'>pos</key><string>{@local.4pages.dotPosX._items(1)},{@global.systemInfo.screenHeight._add(-96)},13,13</string>
 				<key>image</key><string>main_flickdot_off.png</string>
 			</dict>
 			<key>dot_img08</key>
 			<dict>
 				<key>type</key><string>image</string>
 				<key>pos</key><string>{@local.4pages.dotPosX._items(2)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+				<key target='ios'>pos</key><string>{@local.4pages.dotPosX._items(2)},{@global.systemInfo.screenHeight._add(-96)},13,13</string>
 				<key>image</key><string>main_flickdot_off.png</string>
 			</dict>
 			<key>dot_img09</key>
 			<dict>
 				<key>type</key><string>image</string>
 				<key>pos</key><string>{@local.4pages.dotPosX._items(3)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+				<key target='ios'>pos</key><string>{@local.4pages.dotPosX._items(3)},{@global.systemInfo.screenHeight._add(-96)},13,13</string>
 				<key>image</key><string>main_flickdot_off.png</string>
 			</dict>			
 			<key>selectDot_img</key>
 			<dict>
 				<key>type</key><string>image</string>
 				<key>pos</key><string>{@local.2pages.dotPosX._items(0)},{@global.systemInfo.virtualHeight._add(-106)},13,13</string>
+				<key target='ios'>pos</key><string>{@local.2pages.dotPosX._items(0)},{@global.systemInfo.screenHeight._add(-96)},13,13</string>
 				<key>image</key><string>main_flickdot_on.png</string>
 			</dict>			
 		</dict> <!-- components -->

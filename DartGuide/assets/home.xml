@@ -16,6 +16,11 @@
         <key>bgcolor</key><string>0,0,0,1</string>		
 		<key>hidebackbtn</key><string>YES</string>
 		<key>hidenavbar</key><string>YES</string>
+		
+		<key>localVariables</key>
+		<dict>
+			<key>count</key><string>0</string>
+		</dict>
 
 		<key>onBackButtonPressed</key>
 		<dict>
@@ -41,11 +46,6 @@
 				
 		<key>viewWillAppear</key>
 		<dict>
-			<key>sequence</key>
-			<array>
-		        <string>@system.log(========== home ========================)</string>
-			</array>
-			
 			<key>type</key><string>batch</string>
 			<key>Actions</key>
 			<array>
@@ -53,7 +53,8 @@
 					<key>sequence</key>
 					<array>
 						<string>@local.listData.=(@localdb.executeSql(SELECT COUNT() AS COUNT FROM VIDEOINFO WHERE STATE=1))</string>
-						<!--string>@local.count.=(@local.listData._items(0).COUNT)</string-->
+						<!--string>@local.count.=(@local.listData._items(0).COUNT)</string>
+						<string>@system.log(@local.count)</string-->
 					</array>
 				</dict>
 				<dict>
@@ -70,7 +71,7 @@
 							<key>plist</key><string>content/scroll_view.xml</string>
 							<!--key>plist</key><string>content/scroll_view.xml</string-->
 							<key>pos</key><string>0,60,{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight._add(-80)}</string>
-							<key target='ios'>pos</key><string>0,60,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-100)}</string>
+							<key target='ios'>pos</key><string>0,70,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight._add(-60)}</string>
 							<key>extra</key>
 							<dict>
 								<key>parameter</key>
@@ -82,11 +83,17 @@
 					</dict>
 				</dict>
 				<dict>
-					<key>delay</key><string>1.0</string>
-					<key>type</key><string>event</string>
-					<key>target</key><string>self</string>
-					<key>command</key><string>transition</string>
-					<key>components</key>
+					<key target='ios'>sequence</key>
+					<array>
+						<string>@self.intro_img._hide</string>
+					</array>
+				</dict>
+				<dict>
+					<key target='android'>delay</key><string>1.0</string>
+					<key target='android'>type</key><string>event</string>
+					<key target='android'>target</key><string>self</string>
+					<key target='android'>command</key><string>transition</string>
+					<key target='android'>components</key>
 					<dict>
 						<key>intro_img</key>
 						<dict>
@@ -137,21 +144,30 @@
 				<key>backgroundimage</key><string>bgwhite.png</string>
 				<key>components</key>
 				<dict>
-					<key>componentsOrder</key><string>image_logo,button_setting,scroll_view,intro_img</string>
+					<key>componentsOrder</key><string>image_logo,image_setting,button_setting,scroll_view,intro_img</string>
 					
 					<key>image_logo</key>
 					<dict>
 						<key>type</key><string>image</string>
 						<key>pos</key><string>20,12,110,32</string>
 						<key target='ios'>pos</key><string>20,16,110,32</string>
+						<key target='ios7'>pos</key><string>20,28,110,32</string>
 						<key>image</key><string>main_logo.png</string>
 					</dict>
+					<key>image_setting</key>
+					<dict>
+						<key>type</key><string>image</string>
+						<key>pos</key><string>275,20,26,25</string>
+						<key target='ios'>pos</key><string>275,24,26,25</string>
+						<key target='ios7'>pos</key><string>275,36,26,25</string>
+						<key>image</key><string>main_option.png</string>
+					</dict>					
 					<key>button_setting</key>
 					<dict>
 					    <key>type</key><string>button</string>
-					    <key>pos</key><string>275,20,26,25</string>
-					    <key target='ios'>pos</key><string>275,23,26,25</string>
-					    <key>buttonimage</key><string>main_option.png</string>
+					    <key>pos</key><string>255,0,50,55</string>
+					    <key target='ios'>pos</key><string>255,0,50,55</string>
+					    <key target='ios7'>pos</key><string>255,5,50,55</string>
 					    <key>backgroundcolor</key><string>0,0,1,0</string>
 					    <key>action</key>
 					    <dict>
@@ -172,11 +188,11 @@
 
 		<key>menu_action</key>
 		<dict>
-			<key>sequence</key>
+			<!--key>sequence</key>
 			<array>
-				<string>@system.log({@global.systemInfo.screenWidth})</string>
-				<string>@system.log({@global.systemInfo.screenHeight})</string>
-			</array>
+				<string>@system.log(@global.systemInfo.screenWidth)</string>
+				<string>@system.log(@global.systemInfo.screenHeight)</string>
+			</array-->
 
 			<key>type</key><string>batch</string>
 			<key>Actions</key>
@@ -194,8 +210,8 @@
 							<key>type</key><string>class</string>
 							<key>class</key><string>XFORM</string>
 							<key>pos</key><string>0,{@global.systemInfo.virtualHeight},{@global.systemInfo.virtualWidth},{@global.systemInfo.virtualHeight}</string>
-							<!--key target='ios'>pos</key><string>0,{@global.systemInfo.screenHeight},{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string-->
-							<key target='ios'>pos</key><string>0,0,320,480</string>
+							<key target='ios'>pos</key><string>0,0,{@global.systemInfo.screenWidth},{@global.systemInfo.screenHeight}</string>
+							<!--key target='ios'>pos</key><string>0,0,320,480</string-->
 							<key>plist</key><string>views/menu_main.xml</string>
 						</dict>
 					</dict>

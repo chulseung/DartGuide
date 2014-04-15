@@ -5,8 +5,18 @@
     [super init];
 	printXmlLog=0;
     debug=10000;
-	projectName=[[NSString stringWithString:@"DUNAMIS_IPHONE"] retain];
+	projectName=[@"DUNAMIS_IPHONE" retain];
     disabled=-1000;
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    if (screenRect.size.height > 480) {
+        targetDevice=@"ios7";
+        NSLog(@"ios7: %f",screenRect.size.height);
+    }
+    else {
+        targetDevice=@"ios";
+        NSLog(@"ios: %f",screenRect.size.height);
+    }
     
     return self;
 }

@@ -16,9 +16,22 @@
 		<key>hidebackbtn</key><string>YES</string>
 		<key>hidenavbar</key><string>YES</string>
 		
+		<!--key>localVariables</key>
+		<dict>
+			<key>num</key><string>1</string>
+		</dict>
+
+		<key>viewWillAppear</key>
+		<dict>
+			<key>sequence</key>
+			<array>
+				<string>system.log(@parent.parent.local.count)</string>
+			</array>
+		</dict-->
+		
 		<key>components</key>
 		<dict>
-			<key>componentsOrder</key><string>image_setting_bg,label_title_01,label_button_01,label_name_01,button_toggle,label_desc_01,label_button_02,label_name_02</string>
+			<key>componentsOrder</key><string>image_setting_bg,label_title_01,label_button_01,label_name_01,button_toggle,label_desc_01,label_button_02,label_name_02,button_init</string>
 			<key>image_setting_bg</key>
 			<dict>
 				<key>type</key><string>image</string>
@@ -59,13 +72,25 @@
 			<key>button_toggle</key>
 			<dict>
 			    <key>type</key><string>button</string>
-			    <key>pos</key><string>250,65,30,30</string>
-			    <key>buttonimage</key><string></string>
-			    <key>buttonimagepressed</key><string></string>
-			    <key>backgroundcolor</key><string>0,0,1,1</string>
+			    <key>pos</key><string>250,67,26,26</string>
+			    <key>buttonimage</key><string>check_box01.png</string>
+			    <key>backgroundcolor</key><string>0,0,1,0</string>
 			    <key>action</key>
 			    <dict>
-			    	
+					<key>type</key><string>toggle</string>
+					<key>currentState</key><string>firstState</string>
+					<key>firstState</key>
+					<dict>
+						<key>type</key><string>event</string>
+						<key>buttonimage</key><string>check_box02.png</string>
+						<key>nextState</key><string>secondState</string>
+					</dict>
+					<key>secondState</key>
+					<dict>
+						<key>type</key><string>event</string>
+						<key>nextState</key><string>firstState</string>
+						<key>buttonimage</key><string>check_box01.png</string>
+					</dict>			    	
 			    </dict>
 			</dict>
 			<key>label_desc_01</key>
@@ -100,8 +125,63 @@
 			    <key>textalign</key><string>left</string>
 			    <key>bold</key><string>NO</string>
 			</dict>
-			
+			<key>button_init</key>
+			<dict>
+			    <key>type</key><string>button</string>
+			    <key>pos</key><string>20,180,280,35</string>
+			    <key>backgroundcolor</key><string>0,0,1,0</string>
+			    <key>action</key>
+			    <dict>
+			    	<!--key>type</key><string>callAction</string>
+			    	<key>name</key><string>delete_all_action</string-->
+			    </dict>
+			</dict>
 		</dict> <!-- components -->
+		
+		<key>delete_all_action</key>
+		<dict>
+			<key>type</key><string>condition</string>
+		    <key>selector</key><string><![CDATA[@parent.parent.local.count:?>8|YES|NO]]></string>
+		    <key>YES</key>
+		    <dict>
+				<key>type</key><string>batch</string>
+				<key>repeat</key><string>@parent.parent.local.count._add(-8)</string>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>type</key><string>executeSql</string>
+						<key>sqls</key>
+						<array>
+							<string>UPDATE TEMP SET STATE=0 WHERE ROW={@local.num._add(8)}</string>
+						</array>
+					</dict>
+					<dict>
+				    	<key>sequence</key>
+				    	<array>
+				    		<string>@local.num._add(1)</string>
+				    	</array>
+					</dict>
+					<dict>
+						<key>type</key><string>executeSql</string>
+						<key>sqls</key>
+						<array>
+							<string>INSERT OR REPLACE INTO VIDEOINFO SELECT * FROM TEMP</string> <!-- TEMP에 임시 저장한 값을 VIDEOINFO에 넣어준다. -->
+							<string>INSERT OR REPLACE INTO TEMP SELECT * FROM VIDEOINFO</string> <!-- VIDEOINFO의 값을 TEMP에 다시 넣어서 임시 테이블이 같아지게 만들어 준다. -->
+						</array>					
+					</dict>
+				</array>				
+			</dict>
+		    <key>NO</key>
+		    <dict>
+				<key>type</key><string>alert</string>
+				<key>msg</key><string>적용할 데이터가 없습니다.</string>
+				<key>button</key>
+				<dict>
+					<key>title</key><string>확인</string>
+				</dict>    
+			</dict>
+		</dict>
+
 		
 	</dict>
 </plist>

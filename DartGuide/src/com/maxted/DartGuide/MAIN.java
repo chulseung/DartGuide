@@ -348,7 +348,7 @@ public class MAIN extends  flashbox.ANDROID.DELEGATE
 		MANAGER.pushRightOut=R.anim.push_right_out;
 		MANAGER.debug=10000;
 		
-		MANAGER.debugging=true;
+		MANAGER.debugging=false;
 		
 		
 		if(Build.DEVICE.equals("vu2kt") ){
